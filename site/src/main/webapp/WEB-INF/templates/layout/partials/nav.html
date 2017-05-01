@@ -1,0 +1,147 @@
+<!--<nav>
+    <div th:remove="all">
+        
+    </div>
+    <blc:menu resultVar="menuItems" menuName="Header Nav" />
+    <ul th:if="${not #lists.isEmpty(menuItems)}">
+        <li th:each="menuItem : ${menuItems}">
+
+            <a th:href="@{${menuItem.url}}" th:class="${menuItemStat.first}? 'home'">
+                <span th:utext="${menuItem.label}"></span>
+            </a>
+            <ul th:if="${not #lists.isEmpty(menuItem.submenu)}" class="sub-menu">
+                <li th:each="submenuItem : ${menuItem.submenu}">
+                    <a th:href="@{${submenuItem.url}}" th:utext="${submenuItem.label}"  class="sub-menu"></a>
+
+                    <ul th:if="${not #lists.isEmpty(submenuItem.submenu)}" class="secondary-sub-menu">
+                        <li th:each="submenuItem1 : ${submenuItem.submenu}">
+                            <a th:href="@{${submenuItem1.url}}" th:utext="${submenuItem1.label}"></a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+        </li>
+    </ul>
+</nav>-->
+
+<nav class="navbar navbar-default navbar-fixed-top ">
+    <div class="container-fluid">
+        <div class="navbar-brand navbar-brand-centered"><a th:href="@{/}"><img class="img-responsive" src="/img/logo.png" /></a></div>
+        <ul class="nav navbar-nav navbar-left">
+            <li>
+                <button class="btn btn1">ENG</button>
+            </li>
+            <li>
+                <button class="btn">USD</button>
+            </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li th:if="${customer.anonymous}">
+                <a th:href="@{/login}" class="btn btn1">LOGIN</a>
+            </li>
+            <li th:if="${customer.anonymous}">
+                <a th:href="@{/register}" class="btn">SIGNUP</a>
+            </li>
+            <li th:unless="${customer.anonymous}" class="dropdown">
+                <a href="#" class="btn" data-toggle="dropdown"><i class="fa fa-user fa-2x" aria-hidden="true"></i></a>
+                <ul class="dropdown-menu">
+                    <li th:utext="@{'Welcome, '+${customer.firstName}}"></li>
+                    <li><a th:href="@{/account}">Account</a></li>
+                    <!--<li><a href="#">CSS</a></li>-->
+                    <li><a th:href="@{/logout}">Logout</a></li>
+                </ul>
+            </li>
+            <li>
+                <blc:form th:action="@{/search}" method="GET">
+                    <input type="text" placeholder="&#xf002; &nbsp;" name="q" th:value="${originalQuery}" />
+                    <input type="submit" id="search_button" value="go" style="display: none;" />
+                </blc:form>
+            </li>
+            <li>
+<!--                <div class="show-on-hover">
+                    <div class="cart"> <a data-toggle="dropdown" style="padding: 0;" id="cartLink" th:href="@{/cart}"><i class="fa fa-shopping-bag" aria-hidden="true"></i><span class="badge" th:utext="${cart.itemCount}">0</span></a>
+                        <div class="dropdown-menu" role="menu">
+                            <div class="col-md-12 col-sm-12 col-xs-12 cart-view" th:each="item : ${cart.orderItems}" th:object="${item}" th:id="${'productRow' + item.id}">
+                                <div class="col-md-4 col-sm-4 col-xs-12"> <img blc:src="@{*{sku.skuMedia['primary'].url} + '?thumbnail'}" /> </div>
+                                <div class="col-md-8 col-sm-8 col-xs-12">
+                                    <a th:unless="${@blSystemPropertiesService.resolveBooleanSystemProperty('solr.index.use.sku')}" th:href="@{*{product.url}}"><h4 th:utext="*{product.name}"></h4></a>
+                                    <a th:if="${@blSystemPropertiesService.resolveBooleanSystemProperty('solr.index.use.sku')} and *{sku.urlKey}" th:href="@{*{product.url} + *{sku.urlKey}}" th:inline="text"><h4>[[*{sku.name}]] <j th:each="optionValue : *{sku.productOptionValues}" th:utext="${optionValue.attributeValue}"></j></h4></a>
+                                    <a th:if="${@blSystemPropertiesService.resolveBooleanSystemProperty('solr.index.use.sku')} and *{sku.urlKey}" th:href="@{*{product.url} + !*{sku.urlKey}}" th:inline="text"><h4>[[*{sku.name}]] <j th:each="optionValue : *{sku.productOptionValues}" th:utext="${optionValue.attributeValue}"></j></h4></a>
+                                    <a th:unless="${@blSystemPropertiesService.resolveBooleanSystemProperty('solr.index.use.sku')}" class="cartLinkBtn remove_from_cart" th:href="@{/cart/remove(orderItemId=*{id}, productId=*{product.id})}"><span><i class="fa fa-times" aria-hidden="true"></i></span></a>
+                                    <a th:if="${@blSystemPropertiesService.resolveBooleanSystemProperty('solr.index.use.sku')}" class="cartLinkBtn remove_from_cart" th:href="@{/cart/remove(orderItemId=*{id}, skuId=*{sku.id})}"><span><i class="fa fa-times" aria-hidden="true"></i></span></a>
+                                    <h5><b th:if="!${item instanceof T(org.broadleafcommerce.core.order.domain.BundleOrderItem)}" blc:price="*{totalPrice}"></b></h5>
+                                    <h5><b th:if="${item instanceof T(org.broadleafcommerce.core.order.domain.BundleOrderItem)}" blc:price="*{totalPrice}"></b></h5>
+                                </div>
+                            </div>-->
+<!--                            <div class="col-md-12 col-sm-12 col-xs-12 cart-view">
+                                <div class="col-md-4 col-sm-4 col-xs-12"> <img src="/img/1 (1) - Copy - Copy.jpg" /> </div>
+                                <div class="col-md-8 col-sm-8 col-xs-12">
+                                    <h4>BROWN 1929 BLACK</h4><span><i class="fa fa-times" aria-hidden="true"></i></span>
+                                    <h5><b>$250 USD</b></h5> 
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-xs-12 cart-view">
+                                <div class="col-md-4 col-sm-4 col-xs-12"> <img src="/img/1 (1) - Copy - Copy.jpg" /> </div>
+                                <div class="col-md-8 col-sm-8 col-xs-12">
+                                    <h4>BROWN 1929 BLACK</h4><span><i class="fa fa-times" aria-hidden="true"></i></span>
+                                    <h5><b>$250 USD</b></h5> 
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-xs-12 cart-view">
+                                <div class="col-md-4 col-sm-4 col-xs-12"> <img src="/img/1 (1) - Copy - Copy.jpg" /> </div>
+                                <div class="col-md-8 col-sm-8 col-xs-12">
+                                    <h4>BROWN 1929 BLACK</h4><span><i class="fa fa-times" aria-hidden="true"></i></span>
+                                    <h5><b>$250 USD</b></h5> 
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-xs-12 cart-view">
+                                <div class="col-md-4 col-sm-4 col-xs-12"> <img src="/img/1 (1) - Copy - Copy.jpg" /> </div>
+                                <div class="col-md-8 col-sm-8 col-xs-12">
+                                    <h4>BROWN 1929 BLACK</h4><span><i class="fa fa-times" aria-hidden="true"></i></span>
+                                    <h5><b>$250 USD</b></h5> 
+                                </div>
+                            </div>-->
+<!--                            <div class="col-md-12 col-sm-12 col-xs-12 cart-view2">
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <td>Total</td>
+                                            <td style="text-align: right;"><b>$250 USD</b>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-xs-12 cart-view2">
+                                <div class="btn-group">
+                                    <button class="btn-dark">Cart</button>
+                                    <form action="checkout.html">
+                                        <button class="btn-dark">Checkout</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>-->
+                
+                <!-- side Cart -->
+                <div class="cart">
+                    <div style="cursor: pointer;" onclick="openNav()"><a id="cartLink" class="modalcart" th:href="@{/cart}"> <span><i  class="fa fa-shopping-bag" aria-hidden="true"></i></span><span style="cursor: pointer;" class="badge" th:id="badge-count" th:utext="${cart.itemCount}">0</span></a> </div>
+                    <div th:id="myCanvasNav" class="overlay3" onclick="closeNav()"></div>
+                    <div id="mySidenav" class="sidenav">
+                        <a id="mySidenav-a" href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                        <div id="cart-container">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <center>
+                                    <img src="/img/no order.png" />
+                                    <h3>Loading..</h3>
+                                </center>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>

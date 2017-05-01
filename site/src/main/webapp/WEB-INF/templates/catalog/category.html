@@ -1,0 +1,222 @@
+<th:block layout:decorator="layout/fullPageLayout">
+    <head>
+        <title th:utext="${category.name}"></title>
+    </head>
+    
+    <div layout:fragment="content">
+
+<!--        <div id="content" class="width_setter group" role="main">	        
+            <section id="left_column">
+
+                <header>
+                    <h1 th:inline="text">
+                        <span th:utext="#{category.viewing}">Viewing</span> [[${category.name}]] ([[${result.startResult}]] - [[${result.endResult}]] <span th:utext="#{category.of}">of</span> [[${result.totalResults}]])
+                    </h1>
+                    <div th:substituteby="catalog/partials/productSortOptions"></div>
+                </header>
+
+                <ul th:if="${products}" id="products" class="group">
+                    <li th:each="product : ${products}" th:object="${product}" th:include="catalog/partials/productListItem" class="product_container"></li>
+                </ul>
+
+                <ul th:if="${skus}" id="products" class="group">
+                    <li th:each="sku : ${skus}" th:object="${sku}" th:include="catalog/partials/skuListItem" class="product_container"></li>
+                </ul>
+
+                <div th:substituteby="catalog/partials/productPagingOptions" />
+
+            </section>
+
+            <section id="right_column">
+                <header><span th:utext="#{category.filterResults}">Filter your results</span></header>
+                <div id="options">
+
+                    <div th:substituteby="catalog/partials/facetFilter" />
+
+                    <div th:substituteby="catalog/partials/rightHandBannerAds" />
+
+                    <section id="right_column">
+                        <header><span th:utext="#{category.featuredProducts}">Featured Products</span></header>
+                        <div id="options">
+                            <div class="section" th:object="${category}">
+                                 <blc:related_products categoryId="*{id}" quantity="3"/>     
+                                 <ul th:unless="${skus}" id="featured_products" class="group">
+                                    <li th:each="product : ${products}" th:object="${product}" th:include="catalog/partials/productListItem" class="product_container"></li>
+                                 </ul>
+                                 <ul th:if="${skus}" id="featured_products" class="group">
+                                    <li th:each="relatedSku : ${relatedSkus}" th:object="${relatedSku}" th:include="catalog/partials/skuListItem" class="product_container"></li>
+                                 </ul>
+                            </div>                                  
+                        </div>
+                    </section>  
+
+                </div>
+            </section>
+
+        </div>-->
+
+        
+        <section class="clearfix banner">
+            <div class="container">
+                <div class="col-md-12 col-sm-12 col-xs-12" style="padding-top: 15px;padding-bottom: 15px;">
+                    <img class="img-responsive" src="/img/product.jpg" />
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="container">
+                <div class="col-md-12 col-sm-12 col-xs-12 collections">
+                    <div class="col-md-6 col-sm-6 col-xs-12" style="padding-left: 0">
+                        <ul class="breadcrumb">
+                            <li><a th:href="@{/}">Home</a></li>
+                            <li th:utext="${category.name}"></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-12">
+                        <h4 th:inline="text"> Showing [[${result.startResult}]] - [[${result.endResult}]] <span th:utext="#{category.of}">of</span> [[${result.totalResults}]] results</h4>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-12">
+                        <button class="btn-dark pull-right">Sort By</button>
+                    </div>
+                </div>
+                <div th:substituteby="catalog/partials/facetFilter" />
+            </div>
+        </section>
+        <section class="product">
+            <div class="container">
+                <div class="col-md-12 col-sm-12 col-xs-12 product-items" th:if="${products}" id="products">
+                    <div th:each="product : ${products}" th:object="${product}" th:include="catalog/partials/productListItem" class="col-md-4 col-sm-4 col-xs-12 result product_container"></div>
+                </div>
+                
+                <div th:substituteby="catalog/partials/productPagingOptions" />
+                
+                
+            <!-- Modal -->
+<!--            <div class="modal fade" id="myModal3" role="dialog">
+            <div class="modal-dialog">
+             Modal content
+            <div class="modal-content quick-view">
+            <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body clearfix">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="col-md-6 col-sm-6 col-xs-12" id="main_area">
+             <img class="img-responsive" src="/img/pauloramirezwatch1-600x600.jpg">  
+             Slider 
+            <div class="col-md-12 col-sm-12 col-xs-12" id="slider">
+             Top part of the slider 
+            <div class="col-md-12 col-sm-12 col-xs-12" id="carousel-bounding-box">
+            <div class="carousel slide" id="myCarousel">
+             Carousel items 
+            <div class="carousel-inner zoom">
+            <div class="active item " data-slide-number="0"> <img class="img-responsive" src="/img/pauloramirezwatch1-600x600.jpg" />
+
+            </div>
+            <div class="item " data-slide-number="1"> <img class="img-responsive" src="/img/pauloramirezwatch1-600x6002.jpg" />
+
+            </div>
+            <div class="item " data-slide-number="2"> <img class="img-responsive" src="/img/pauloramirezwatch1-600x6003.jpg" />
+
+            </div>
+            </div>
+             Carousel nav 
+            </div>
+            </div>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12" id="slider-thumbs">
+             Bottom switcher of slider 
+            <ul class="hide-bullets">
+            <li class="col-md-4 col-sm-4">
+            <a class="thumbnail" id="carousel-selector-0"><img class="img-responsive" src="/img/pauloramirezwatch1-600x600.jpg" /> </a>
+            </li>
+            <li class="col-md-4 col-sm-4">
+            <a class="thumbnail" id="carousel-selector-1"><img class="img-responsive" src="/img/pauloramirezwatch1-600x6002.jpg" />
+            </a>
+            </li>
+            <li class="col-md-4 col-sm-4">
+            <a class="thumbnail" id="carousel-selector-2"><img class="img-responsive" src="/img/pauloramirezwatch1-600x6003.jpg" />
+            </a>
+            </li>
+            </ul>
+            </div>
+            /Slider
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+            <h2>NEW! ROYAL 38 MM - SILVER</h2>
+            <div class="price"><h3><b>$210 USD</b></h3><h3 class="price2">$250 USD</h3></div>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+            <div class="col-md-12 col-sm-12 col-xs-12 specifications">
+            <table class="table">
+            <tbody>
+            <tr>
+            <td><b>Model No. :</b>
+            </td>
+            <td>Born 1929</td>
+            </tr>
+            <tr>
+            <td><b>Case Color :</b>
+            </td>
+            <td>Black</td>
+            </tr>
+            <tr>
+            <td><b>Dail Color :</b>
+            </td>
+            <td>Black</td>
+            </tr>
+            <tr>
+            <td><b>Case :</b>
+            </td>
+            <td>304L Stainless Steel Case</td>
+            </tr>
+            <tr>
+            <td><b>Case Size : </b>
+            </td>
+            <td> 42 x 37mm</td>
+            </tr>
+            <tr>
+            <td><b>Band :</b>
+            </td>
+            <td> Black sleek leather strap with stainless steel buckle.</td>
+            </tr>
+            </tbody>
+            </table>
+            <a href="">
+            <h5>VIEW ALL SPECIFICATIONS </h5> </a>
+            </div>
+            <div class="specfi"><a href=""><h5>VIEW ALL SPECIFICATIONS </h5></a>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12 btns">
+            <div class="col-md-5 col-sm-5 col-xs-12 shop">
+            <button class="btn-dark1">Shop Now</button>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 quantity">
+                <div class="input-group" style="margin-top: 10px; border: 1px solid #212230;">
+                    <span class="input-group-btn">
+                        <button class="btn-dark2 value-control" data-action="minus" data-target="font-size">-</button>
+                    </span>
+                    <input type="text" value="1" class="form-control" id="font-size" />
+                    <span class="input-group-btn">
+                        <button class="btn-dark2 value-control" data-action="plus" data-target="font-size">+</button>
+                    </span>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-3 col-xs-12 wishlist">
+            <button class="btn-dark3"><i class="fa fa-heart" aria-hidden="true"></i>
+            </button>
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>-->
+            <!-- modal Ends -->
+            
+            </div>
+        </section>
+
+    </div>
+</th:block>

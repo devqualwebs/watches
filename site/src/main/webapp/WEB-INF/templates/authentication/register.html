@@ -1,0 +1,121 @@
+<div id="account" layout:decorator="layout/fullPageLayout" layout:fragment="content">
+    <head>
+        <title>Register</title>
+    </head>
+
+<!--    <div id="register">
+        <h3><span th:utext="#{register.registerForAccount}">Register for an Account</span></h3>
+        <p><span th:utext="#{register.signUpNow}">Don't have an account yet? Sign up for one now to gain access to all our member tools</span>.</p>
+
+        <blc:form id="registrationForm" action="#" th:object="${registrationForm}" th:action="@{/register}" method="post" class="clearfix">
+            <input type="hidden" th:field="*{redirectUrl}" />
+                
+            <div class="form50">
+                <label for="customer.emailAddress"><span th:utext="#{register.email}">Email</span></label>
+                <span class="error" th:if="${#fields.hasErrors('customer.emailAddress')}" th:errors="*{customer.emailAddress}"></span>
+                <input type="email" th:field="*{customer.emailAddress}" class="field50" th:classappend="${#fields.hasErrors('customer.emailAddress')}? 'fieldError'" />
+            </div>
+            <div class="form50">
+                <label for="customer.firstName"><span th:utext="#{register.firstName}">First Name</span></label>
+                <span class="error" th:if="${#fields.hasErrors('customer.firstName')}" th:errors="*{customer.firstName}"></span>
+                <input type="text" th:field="*{customer.firstName}" class="field50" th:classappend="${#fields.hasErrors('customer.firstName')}? 'fieldError'" />
+            </div>
+            <div class="form50">
+                <label for="customer.lastName"><span th:utext="#{register.lastName}">Last Name</span></label>
+                <span class="error" th:if="${#fields.hasErrors('customer.lastName')}" th:errors="*{customer.lastName}"></span>
+                <input type="text" th:field="*{customer.lastName}" class="field50" th:classappend="${#fields.hasErrors('customer.lastName')}? 'fieldError'" />
+            </div>          
+            <div class="form50">
+                <label for="password"><span th:utext="#{register.password}">Password</span></label>
+                <span class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+                <input type="password" th:field="*{password}" class="field50" th:classappend="${#fields.hasErrors('password')}? 'fieldError'" />
+            </div>
+            <div class="form50">
+                <label for="confirmPassword"><span th:utext="#{register.confirmPassword}">Confirm Password</span></label>
+                <span class="error" th:if="${#fields.hasErrors('passwordConfirm')}" th:errors="*{passwordConfirm}"></span>
+                <input type="password" th:field="*{passwordConfirm}" class="field50" th:classappend="${#fields.hasErrors('passwordConfirm')}? 'fieldError'" />
+            </div>          
+            
+            <div class="login_register">
+                <input class="register_button big red" type="submit" th:value="#{register.register}"/>
+            </div>
+            <div class="login_register_alt_links">
+                <a class="account" th:href="@{/login}"><span th:utext="#{register.login}">Login</span></a>
+                <br/>
+                <a class="account" th:href="@{/login/forgotPassword}"><span th:utext="#{register.forgotPassword}">Forgot Password</span></a>
+            </div>
+        </blc:form>
+    </div>  -->
+    <section class="clearfix banner">
+        <div class="col-md-12 col-sm-12 col-xs-12" style="padding: 0"> <img class="img-responsive" src="/img/signup.jpg" /> </div>
+    </section>
+    <div class="container">
+        <div class="col-md-12 regis">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <h2>SIGNUP FOR WATCHES</h2>
+                <p>To create an account on watches, simply fill in the details below enter your email and password.</p>
+            </div>
+            <blc:form th:object="${registrationForm}" th:action="@{/register}" method="post">
+                <input type="hidden" th:field="*{redirectUrl}" />
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="wrapper">
+                        <span class="error" th:if="${#fields.hasErrors('customer.firstName')}" th:errors="*{customer.firstName}"></span>
+                        <div class="field">
+                            <label for="customer.firstName" class="field-label">First Name</label>
+                            <input type="lang" id="customer.firstName" name="customer.firstName" class="field-input" th:field="*{customer.firstName}" />
+                        </div>
+                    </div>
+                    <div class="wrapper">
+                        <span class="error" th:if="${#fields.hasErrors('customer.lastName')}" th:errors="*{customer.lastName}"></span>
+                        <div class="field">
+                            <label for="customer.lastName" class="field-label">Last Name</label>
+                            <input type="lang" id="customer.lastName" name="customer.lastName" class="field-input" th:field="*{customer.lastName}" />
+                        </div>
+                    </div>
+                    <div class="wrapper">
+                        <span class="error" th:if="${#fields.hasErrors('customer.emailAddress')}" th:errors="*{customer.emailAddress}"></span>
+                        <div class="field">
+                            <label for="customer.emailAddress" class="field-label">Email</label>
+                            <input type="email" id="customer.emailAddress" name="customer.emailAddress" class="field-input" th:field="*{customer.emailAddress}" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="wrapper">
+                        <span class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+                        <div class="field">
+                            <label for="password" class="field-label">Password</label>
+                            <input type="password" id="password" name="password" class="field-input" th:field="*{password}" />
+                        </div>
+                    </div>
+                    <div class="wrapper">
+                        <span class="error" th:if="${#fields.hasErrors('passwordConfirm')}" th:errors="*{passwordConfirm}"></span>
+                        <div class="field">
+                            <label for="passwordConfirm" class="field-label">Confirm Password</label>
+                            <input type="password" id="passwordConfirm" name="passwordConfirm" class="field-input" th:field="*{passwordConfirm}" />
+                        </div>
+                    </div>
+                    <p style="margin-bottom: 25px;">Password must include min. 6 characters and at least one number.</p>
+                    <div class="checkboxx">
+                        <div class="center-on-page">
+                            <input type="checkbox" name="cb" id="cb1" />
+                            <label for="cb1"> I consent to Watch's Privacy Policy. *</label>
+                        </div>
+                    </div>
+                    <button class="signup" type="submit" disabled="false" id="create-acc">Create Account</button>
+                    <div class="col-md-12 col-sm-12 col-xs-12" style="margin-top: 30px;">
+                        <h3 class="background"><span>Signup With Social Accounts</span></h3>
+                    </div>
+                    <center>
+                        <ul>
+                            <li class="fb"><a href=""><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                            <li class="insta"><a href=""><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                            <li class="tw"><a href=""><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                            <li class="g"><a href=""><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+                        </ul>
+                    </center>
+                </div>
+            </blc:form>
+        </div>
+    </div>
+</div>

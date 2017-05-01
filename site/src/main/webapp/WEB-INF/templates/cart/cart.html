@@ -1,0 +1,137 @@
+<!--<th:block layout:decorator="layout/fullPageLayout">
+    <head>
+        <title>Cart</title>
+    </head>
+
+    <div id="cart" class="cart_modal" layout:fragment="content" th:fragment="ajax">
+        <table th:substituteby="cart/partials/cartProductsTable"></table>
+    
+        <div id="cart_total" class="group">
+            <h3><span th:utext="#{cart.currentSubtotal}">Your Current Subtotal</span></h3>
+            <div id="subtotal" th:unless="${cart.subTotal?.zero}" blc:price="${cart.subTotal?.subtract(cart.orderAdjustmentsValue)}"></div>
+            <div id="orderDiscounts" th:unless="${cart.orderAdjustmentsValue.zero}">
+                <span th:utext="#{cart.orderDiscount}">Order Discount</span>: <span blc:price="${cart.orderAdjustmentsValue}" />
+            </div>
+            <p><span th:utext="#{cart.subtotalDisclaimer}">Subtotal does not yet include applicable tax or shipping and handling charges</span>.</p>
+            <div id="checkout">
+                <a th:href="@{/checkout}" target="_top" class="big-button red-button">
+                    <span th:utext="#{cart.checkout}">Checkout</span>
+                </a>
+            </div>
+            <p>
+                <form blc:sample_payment_hosted_action="${paymentRequestDTO}" complete_checkout="${false}" method="POST">
+                    <input type="hidden" name="TRANSACTION_AMT" th:value="${cart.total}"/>
+                    <input type="hidden" name="ORDER_ID" th:value="${cart.id}"/>
+                    <input type="hidden" name="COMPLETE_CHECKOUT_ON_CALLBACK" value="false"/>
+                    <input type="image" src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif" align="left" style="margin-right:7px;" alt="Submit Form" />
+                </form>
+                <div class="clearfix"></div>
+                <a th:href="@{/}" target="_top">&laquo; <span th:utext="#{cart.continueShopping}">Continue Shopping</span></a>
+            </p>
+        </div>
+        <p class="error" th:if="${param.errorMessage}" th:utext="${param.errorMessage[0]}"></p>
+        <p class="error" th:if="${errorMessage}" th:utext="${errorMessage}"></p>
+        <blc:form id="cart_promo" method="POST" th:action="@{/cart/promo}">
+            <label for="promoCode"><span th:utext="#{cart.promoCode}">Promo Code</span>:</label>
+            <input id="promoCode" name="promoCode" type="text" th:value="*{promoCode}" value="" autocomplete="off"/>
+            <input type="submit" id="addPromo" name="addPromo" th:value="#{cart.applyDiscount}" class="small red" />
+            <div th:each="promo : ${cart.addedOfferCodes}" th:object="${promo}" th:remove="tag">
+                <div class="promo"><span th:utext="*{offerCode}" th:remove="tag"/> <a class="remove_promo" th:href="@{/cart/promo/remove(offerCodeId=*{id})}"><i class="icon-remove"></i></a></div>
+            </div>
+            <div id="cart_promo_error" style="display: none;"></div>
+        </blc:form>
+        
+        <div id="blc-extra-data" class="hidden" th:utext="${blcextradata}" th:if="${!#strings.isEmpty(blcextradata)}"></div>
+    </div>
+</th:block>-->
+
+<th:block layout:decorator="layout/fullPageLayout">
+    <head>
+        <title>Cart</title>
+    </head>
+    <div id="cart" class="cart_modal" layout:fragment="content" th:fragment="ajax">
+        <div class="col-md-12 col-sm-12 col-xs-12 cart-view" th:each="item : ${cart.orderItems}" th:object="${item}" th:id="${'productRow' + item.id}">
+            <div class="col-md-3 col-sm-3 col-xs-12 product-img-1">
+                <th:block th:unless="*{#lists.isEmpty(sku.productOptionValues)}" th:each="optionValue : *{sku.productOptionValues}">
+                    <img th:if="${optionValue.attributeValue == item.sku.skuMedia['primary']?.tags}" blc:src="@{*{sku.skuMedia['primary'].url}}" width="100" th:alt="*{sku.name}" />
+                    <img th:if="${optionValue.attributeValue == item.sku.skuMedia['alt1']?.tags}" blc:src="@{*{sku.skuMedia['alt1'].url}}" width="100" th:alt="*{sku.name}" />
+                    <img th:if="${optionValue.attributeValue == item.sku.skuMedia['alt2']?.tags}" blc:src="@{*{sku.skuMedia['alt2'].url}}" width="100" th:alt="*{sku.name}" />
+                </th:block>
+                <img th:if="*{#lists.isEmpty(sku.productOptionValues) and sku.skuMedia['primary'] != null}" blc:src="@{*{sku.skuMedia['primary']?.url}}" width="100" th:alt="*{sku.name}" />
+            </div>
+            <div class="col-md-9 col-sm-9 col-xs-12 product-1">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <a th:unless="${@blSystemPropertiesService.resolveBooleanSystemProperty('solr.index.use.sku')}" th:href="@{*{product.url}}"><h4 th:utext="*{product.name}"></h4></a>
+                            </td>
+                            <td style="text-align: right; width: 25%;">
+                                <h5 th:if="!${item instanceof T(org.broadleafcommerce.core.order.domain.BundleOrderItem)}"><b blc:price="*{totalPrice}"></b></h5>
+                                <h5 th:if="${item instanceof T(org.broadleafcommerce.core.order.domain.BundleOrderItem)}"><b blc:price="*{totalPrice}"></b></h5>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <ul>
+                    <li>
+                        <h4 style="margin-top: 0;">Quantity :</h4>
+                    </li>
+                    <li>
+                        <blc:form method="POST" th:action="@{/cart/updateQuantity}">
+                            <select style="border: 0px;" name="quantity" class="quantity-select" th:value="*{quantity}" th:id="@{'sel-'+*{product.id}}">
+                                <option th:value="1" th:selected="*{quantity} == 1">1</option>
+                                <option th:value="2" th:selected="*{quantity} == 2">2</option>
+                                <option th:value="3" th:selected="*{quantity} == 3">3</option>
+                                <option th:value="4" th:selected="*{quantity} == 4">4</option>
+                            </select>
+                            <input type="hidden" name="productId" th:value="*{product.id}" />
+                            <input type="hidden" name="skuId" th:value="*{sku.id}" />
+                            <input type="hidden" name="orderItemId" th:value="*{id}" />
+                            <input type="submit" class="updateQuantity" th:value="#{cart.update}" th:id="@{'sub-'+*{product.id}}" style="display: none;" />
+                        </blc:form>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="i"><a th:unless="${@blSystemPropertiesService.resolveBooleanSystemProperty('solr.index.use.sku')}" class="remove_from_cart" th:href="@{/cart/remove(orderItemId=*{id}, productId=*{product.id})}"><span><i class="fa fa-times" aria-hidden="true"></i></span>Remove</a></li>
+                    <li class="i"><a th:if="${@blSystemPropertiesService.resolveBooleanSystemProperty('solr.index.use.sku')}" class="remove_from_cart" th:href="@{/cart/remove(orderItemId=*{id}, skuId=*{sku.id})}"><span><i class="fa fa-times" aria-hidden="true"></i></span>Remove</a></li>
+                    <li class="i"><span><i class="fa fa-heart" aria-hidden="true"></i></span> Move to Wish List</li>
+                </ul>
+            </div>
+        </div>
+        <div th:if="${cart.orderItems}">
+            <div class="col-md-12 col-sm-12 col-xs-12 cart-view2" th:if="${!cart.orderItems.isEmpty()}">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td>Total</td>
+                            <td style="text-align: right;"><b th:unless="${cart.subTotal?.zero}" blc:price="${cart.subTotal?.subtract(cart.orderAdjustmentsValue)}"></b> </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12" th:if="${!cart.orderItems.isEmpty()}">
+                <center>
+                    <form action="checkout.html">
+                        <a th:href="@{/checkout}" target="_top"><button class="btn-dark">Proceed to pay <j th:unless="${cart.subTotal?.zero}" blc:price="${cart.subTotal?.subtract(cart.orderAdjustmentsValue)}"></j></button></a>
+                    </form>
+                </center>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12" th:if="${cart.orderItems.isEmpty()}">
+                <center>
+                    <img src="/img/no order.png" />
+                    <h3>Bag is empty</h3>
+                </center>
+            </div>
+        </div>
+        <div th:unless="${cart.orderItems}">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <center>
+                    <img src="/img/no order.png" />
+                    <h3>Bag is empty</h3>
+                </center>
+            </div>
+        </div>
+        <div id="blc-extra-data" class="hidden" th:utext="${blcextradata}" th:if="${!#strings.isEmpty(blcextradata)}"></div>
+    </div>
+</th:block>

@@ -1,0 +1,196 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+.banner {
+    margin-bottom: 50px;
+}
+.regis h2 {
+    color: #212230;
+    margin-bottom: 20px;
+}
+.regis h3 {
+    color: #212230;
+    font-size: 18px;
+    text-align: center;
+    text-transform: uppercase;
+    margin: 20px;
+    auto;
+}
+/*Text Input Fields*/
+
+.regis .wrapper {
+    width: 100%;
+    margin: 40px auto;
+}
+.regis .field {
+    position: relative;
+    height: 60px;
+    padding: 16px 5px 8px 5px;
+}
+.regis .field:after,
+.field:before {
+    content: '';
+    height: 2px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-color: #e7e7e7;
+}
+.regis .field:after {
+    background-color: #212230;
+    -moz-transform: scaleX(0);
+    -ms-transform: scaleX(0);
+    -webkit-transform: scaleX(0);
+    transform: scaleX(0);
+    transition: transform 0.3s;
+}
+.regis .field .field-label {
+    position: relative;
+    margin: 0;
+    display: block;
+    font-size: 16px;
+    margin-top: -16px;
+    line-height: 16px;
+    color: gray;
+    font-weight: 400;
+    -moz-transform: translateY(24px);
+    -ms-transform: translateY(24px);
+    -webkit-transform: translateY(24px);
+    transform: translateY(24px);
+    transition: transform 0.3s;
+    transform-origin: 0 50%;
+}
+.regis .field .field-input {
+    position: relative;
+    display: block;
+    width: 100%;
+    padding: 8px 0;
+    height: 32px;
+    line-height: 8px;
+    font-size: 16px;
+    background: transparent;
+    border: none;
+    -webkit-appearance: none;
+    outline: none;
+}
+.regis .has-label .field-label {
+    -moz-transform: translateY(0);
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+}
+.regis .is-focused .field-label {
+    color: #212230;
+}
+.regis .field.is-focused::after {
+    -moz-transform: scaleX(1);
+    -ms-transform: scaleX(1);
+    -webkit-transform: scaleX(1);
+    transform: scaleX(1);
+}
+.regis .btn-dark {
+    background-color: transparent;
+    border: 1px solid #212230;
+    border-radius: 0;
+    padding: 15px;
+    color: #212230;
+    width: 150px;
+    margin-top: 10px;
+    outline: none !important;
+    transition: all 0.3s ease;
+    position: relative;
+}
+.regis .btn-dark:hover {
+    background-color: #212230;
+    color: #9397a3;
+}
+.regis .btn-dark:active {
+    top: 2px;
+}
+.regis .signup {
+    background-color: transparent;
+    border: 1px solid #212230;
+    border-radius: 0;
+    padding: 15px;
+    color: #212230;
+    width: 200px;
+    margin-top: 20px;
+    outline: none !important;
+    transition: all 0.3s ease;
+    position: relative;
+}
+.regis .signup:hover {
+    background-color: #212230;
+    color: #9397a3;
+}
+.regis .signup:active {
+    top: 2px;
+}
+.regis ul .fa {
+    font-size: 30px;
+    color: #9397a3;
+    transition: all 0.3s ease;
+    position: relative;
+}
+.regis ul .fb .fa:hover {
+    color: #3C5A99;
+}
+.regis ul .insta .fa:hover {
+    color: #306088;
+}
+.regis ul .tw .fa:hover {
+    color: #58E4FF;
+}
+.regis ul .g .fa:hover {
+    color: #DC493D;
+}
+#footer {
+    margin-top: 50px;
+}
+.regis h3.background:before {
+    border-top: 1px solid #212230;
+    content: "";
+    margin: 0 auto;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: auto;
+    z-index: -1;
+}
+.regis h3.background span {
+    background: #fff;
+    padding: 0 15px;
+}
+.regis ul {
+    margin: 0;
+    padding: 0;
+}
+.regis li {
+    margin: 0;
+    padding: 15px;
+    list-style: none;
+    display: inline-flex;
+}
+/*Media Queries Starts*/
+@media only screen and (max-width: 1366px) {
+        h1{
+        font-size: 32px;
+    }
+    h2{
+        font-size: 28px;
+    }
+    h3{
+        font-size: 20px;
+    }
+    h4{
+        font-size: 16px;
+    }
+    h5{
+        font-size: 12px;
+    }
+    h6{
+        font-size: 10px;
+    }
+    }

@@ -1,0 +1,73 @@
+<!--<div class="product-options" th:fragment="productOptions">
+    <blc:product_options productId="*{id}" />
+    <div id="product-option-data" hidden="hidden" th:attr="data-product-option-pricing=${skuPricing}, data-product-options=${allProductOptions}" />
+    <ul>
+        <li th:each="productOption : *{productOptions}" th:object="${productOption}" class="product-option-group cf" th:classappend="*{type.type == 'COLOR'}? 'colors'">
+            <label th:utext="*{label}"></label>:
+             <span th:id="*{attributeName}" class="option-value" th:attr="data-optiontype=*{type.type}"></span>
+             <ul class="cf" th:switch="*{type.type}">
+                <li th:case="'TEXT'">                     
+                    <input th:name="${'itemAttributes[' + productOption.attributeName + ']'}" value="" th:type="*{type}" th:required="*{required}" maxlength="255" />                               
+                </li>
+                <li th:case="'SELECT'">
+                    <select th:name="${'itemAttributes[' + productOption.attributeName + ']'}">
+                        <option th:each="optionValue : *{allowedValues}" th:object="${optionValue}" th:utext="*{attributeValue}"></option>
+                    </select> 
+                </li>                             
+                <li th:case="'TEXTAREA'">
+                    <textarea th:name="${'itemAttributes[' + productOption.attributeName + ']'}" value="" th:type="*{type}" th:required="*{required}" />
+                </li>
+                <li th:case="'DECIMAL'">
+                    <input th:name="${'itemAttributes[' + productOption.attributeName + ']'}" value="" th:type="*{type}" th:required="*{required}" maxlength="10" />
+                </li>
+                <li th:case="*" th:remove="tag">
+                    <li th:each="optionValue : *{allowedValues}" blc:product_option_value="${optionValue}" th:object="${optionValue}" th:classappend="${productOption.type.type == 'COLOR'}? ${optionValue.attributeValue}" >
+                        <div>
+                            <a href="#" class="option-label" th:utext="*{attributeValue}"  ></a>
+                        </div>
+                    </li>
+                </li>
+            </ul>       
+        </li>
+    </ul>
+    
+    <span class="productOptionsSpan centered" style="display: none;"><span th:utext="#{product.productOptionValidationError}">Product Option Validation Failed</span></span>
+    <span class="error centered" style="display: none;"><span th:utext="#{product.allOptionsRequired}">All options are required</span></span>
+    <span class="error errorMessage" style="display: none;"></span>
+</div>-->
+
+<div th:fragment="productOptions" th:remove="tag">
+    
+    <div th:each="productOption : *{productOptions}" th:object="${productOption}" th:remove="tag">
+        <label th:utext="*{label}"></label>
+        <div th:if="*{type.type} == 'TEXT'" th:remove="tag">
+            <input th:name="${'itemAttributes[' + productOption.attributeName + ']'}" value="" th:type="*{type}" th:required="*{required}" maxlength="255" class="model-input form-control" th:attr="data-optiontype=*{type.type}" th:id="*{attributeName}" />
+        </div>
+        <div th:if="*{type.type} == 'SELECT'" th:remove="tag">
+            <select th:name="${'itemAttributes[' + productOption.attributeName + ']'}" class="model-input soflow" th:attr="data-optiontype=*{type.type}" th:id="*{attributeName}">
+                <option th:each="optionValue : *{allowedValues}" th:object="${optionValue}" th:utext="*{attributeValue}"></option>
+            </select> 
+        </div>
+        <div th:if="*{type.type} == 'SIZE'" th:remove="tag">
+            <select th:name="${'itemAttributes[' + productOption.attributeName + ']'}" class="model-input soflow" th:attr="data-optiontype=*{type.type}" th:id="*{attributeName}">
+                <option th:each="optionValue : *{allowedValues}" th:object="${optionValue}" th:utext="*{attributeValue}"></option>
+            </select> 
+        </div>
+        <div th:if="*{type.type} == 'COLOR'" th:remove="tag">
+            <select th:name="${'itemAttributes[' + productOption.attributeName + ']'}" class="model-input soflow" th:attr="data-optiontype=*{type.type}" th:id="*{attributeName}">
+                <option th:each="optionValue : *{allowedValues}" th:object="${optionValue}" th:utext="*{attributeValue}"></option>
+            </select> 
+        </div>
+        <div th:if="*{type.type} == 'TEXTAREA'" th:remove="tag">
+            <textarea th:name="${'itemAttributes[' + productOption.attributeName + ']'}" value="" th:type="*{type}" th:required="*{required}" class="model-input form-control" th:attr="data-optiontype=*{type.type}" th:id="*{attributeName}" />
+        </div>
+        <div th:if="*{type.type} == 'DECIMAL'" th:remove="tag">
+            <input th:name="${'itemAttributes[' + productOption.attributeName + ']'}" value="" th:type="*{type}" th:required="*{required}" class="model-input form-control" th:attr="data-optiontype=*{type.type}" th:id="*{attributeName}" maxlength="10" />
+        </div>
+        <span th:id="*{attributeName}" class="option-value" th:attr="data-optiontype=*{type.type}"></span>
+    </div>
+    
+    <span class="productOptionsSpan centered" style="display: none;"><span th:utext="#{product.productOptionValidationError}">Product Option Validation Failed</span></span>
+    <span class="error centered" style="display: none;"><span th:utext="#{product.allOptionsRequired}">All options are required</span></span>
+    <span class="error errorMessage" style="display: none;"></span>
+</div>
