@@ -168,4 +168,25 @@ $(document).ready(function() {
         else
             $("#create-acc").attr("disabled","");
     }
+    
+    // For single product page slider
+    $('.center').slick({
+        centerMode: true,
+        centerPadding: '0px',
+        slidesToShow: 3,
+        prevArrow: '<a class="my-left" href="#" data-slide="prev"><img src="/img/left.png"> </a>',
+        nextArrow: '<a class="my-right" href="#" data-slide="prev"><img src="/img/right.png"> </a>'
+    });
+    
+    $("#plus-value").click(function(){
+        var currValue = parseInt($("#increment-value").html());
+        currValue++;
+        $("#increment-value").html(currValue);
+    });
+    $("#minus-value").click(function(){
+        var currValue = parseInt($("#increment-value").html());
+        currValue--;
+        if(currValue >= 1)
+            $("#increment-value").html(currValue);
+    });
 });

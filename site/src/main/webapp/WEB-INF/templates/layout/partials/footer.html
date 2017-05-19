@@ -101,6 +101,10 @@
 <script src="/js/ddmenu.js" type="text/javascript"></script> 
 <script src="/js/owl.carousel.js"></script> 
 <script src="/js/jquery-confirm.min.js"></script>
+<script src="/js/jquery.nicescroll.min.js"></script>
+<script src="/js/jquery.rateyo.js"></script>
+<script src="/js/jquery.fancybox.min.js"></script>
+<script src="/js/slick.js"></script>
 <!--<script src="/js/2/ninja-slider.js" type="text/javascript"></script>-->
 
 <!--<script th:inline="text">
@@ -131,5 +135,60 @@
                    heatClinic.js,
                    cart.js" />
 
+<script>
+//    $(document).ready(
+//        function() {
+//            $("html").niceScroll({
+//                cursorcolor:'#212230',
+//                cursorborderradius:'0px'
+//            });
+//        }
+//    );
+    // Nice scroll initialisation.
+    $(document).ready(function() {
+        $("html").niceScroll({
+            cursorcolor:'#212230',
+            cursorborderradius:'0px',
+            cursorborder :'0px',
+            cursorwidth :'12'
+        });
+    });
+
+    $(document).ready(function() {
+        $(".myscroll").niceScroll({
+            cursorcolor:'#212230',
+            cursorborderradius:'0px',
+            cursorborder :'0px',
+            cursorwidth :'12'
+        });
+    });
+    
+    function initFancyScroll()
+    {
+        setTimeout(function(){
+            $("#fancyscroll").niceScroll({
+                cursorcolor:'#212230',
+                cursorborderradius:'0px',
+                cursorborder :'0px',
+                cursorwidth :'0'
+            });
+        },500);
+    }
+    
+    // Checking for login before review
+    function writeAReview()
+    {
+        if($(".login-test").length)
+        {
+            window.location.href = "/login";
+        }
+        else
+        {
+            $("#myModal").modal('show');
+        }
+    }
+    
+    var reviewSelected = $("#rateYo").rateYo({fullStar: true});
+</script>
 <!-- Progress bar carousel -->
 <script src="/js/custom.js"></script> 

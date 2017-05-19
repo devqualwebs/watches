@@ -272,5 +272,85 @@ $(function(){
     // This will change the header "X item(s)" text to the new count and pluralization of "item"
     function updateHeaderCartItemsCount(newCount) {
         $("#badge-count").html(newCount);
+    } 
+    
+    function addSingleProductData(optionAvail)
+    {
+        
+        if(optionAvail)
+        {
+            $cartForm = $("#popUpFormInnerActive");
+            var itemRequest = BLC.serializeObject($cartForm);
+        }else{
+            $cartForm = $("#addProductToCartForm");
+            var itemRequest = BLC.serializeObject($cartForm);
+        }
+        itemRequest['quantity'] = $("#increment-value").html();
+        
+        console.log(itemRequest);
+        
+//        alert($cartForm.find("input[name=productId]").val());
+        BLC.ajax({url: $cartForm.attr('action'), 
+            type: "POST",
+            dataType: "json",
+            data: itemRequest
+        }, function(data, extraData){
+            if (data.error) {
+                if (data.error == 'allOptionsRequired') {
+//                    $errorSpan.css('display', 'block');
+//                    $errorSpan.effect('highlight', {}, 1000);
+                } else if (data.error == 'productOptionValidationError') {
+                        // find the product option that failed validation with jquery
+                        // put a message next to that text box with value = data.message
+//                        $productOptionsSpan.text('Product Validation Failed: '+ data.errorCode+' '+data.errorMessage);
+//                        $productOptionsSpan.css('display', 'block');
+//                        $productOptionsSpan.effect('highlight', {}, 1000);
+
+                } else if (data.error = 'inventoryUnavailable') {
+                    $.alert('This item is no longer in stock. We apologize for the inconvenience.', 'Not added');
+                } else {
+                    $.alert('Error adding to cart', 'Not added');
+                }
+            } else {
+//                $errorSpan.css('display', 'none'); 
+//                $productOptionsSpan.css('display', 'none'); 
+                updateHeaderCartItemsCount(data.cartItemCount);
+                showInCartButton(data.productId, 'cart');
+                $.alert('Item added into cart successfully', 'Added');
+            }
+        });
     }
+    // Function for add product in cart from single product page
+    $("#singleAddToCartButton").click(function(){
+        if($(".option-class").length) {
+            var popUpContent = $("#popUpForm").html();
+            popUpContent = popUpContent.replace("popUpFormInner", "popUpFormInnerActive");
+            $.confirm({
+                title: '',
+                content: popUpContent,
+                type: 'dark',
+                buttons: {
+                    cancel: {
+                        text: 'Cancel',
+                        btnClass: 'btn'
+                    },
+                    tryAgain: {
+                        text: 'Add to cart',
+                        btnClass: 'btn-dark',
+                        action: function(){
+                            addSingleProductData(true);
+                        }
+                    }
+                }
+            });
+        }
+        else{
+            addSingleProductData(false);
+        }
+    });
+    
+//    $("body").on("change",".popup-class",function(){
+//        $form = $("#addProductToCartForm");
+//        $form.find("input[name='"+$(this).attr('name')+"']").val($(this).val());
+//    });
 });
