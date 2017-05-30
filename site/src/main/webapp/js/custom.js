@@ -11,6 +11,15 @@ function closeNav() {
 
 $(document).ready(function() {
     
+    // Initializing display rating
+    $(".star-ratings-sprite-rating").each(function(){
+        var dRating = $(this).attr('rating-attr');
+        if(dRating){
+            var ratingPer = (parseFloat(dRating)/5.0) * 100;
+            $(this).css('width', ratingPer+"%");
+        }
+    });
+    
     // Scroll top code : browser window scroll (in pixels) after which the "back to top" link is shown
     var offset = 300,
         //browser window scroll (in pixels) after which the "back to top" link opacity is reduced

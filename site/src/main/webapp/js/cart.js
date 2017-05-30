@@ -244,6 +244,7 @@ $(function(){
             		showAddToCartButton(extraData.productId, 'cart');
             	}
                 $("#cart-container").html(data);
+                $("#singleAddToCartContainer").html('<div><center><button class="btn-dark2" id="singleAddToCartButton">Buy Now</button></center></div>');
             }
         );
         return false;
@@ -287,7 +288,6 @@ $(function(){
         }
         itemRequest['quantity'] = $("#increment-value").html();
         
-        console.log(itemRequest);
         
 //        alert($cartForm.find("input[name=productId]").val());
         BLC.ajax({url: $cartForm.attr('action'), 
@@ -321,7 +321,7 @@ $(function(){
         });
     }
     // Function for add product in cart from single product page
-    $("#singleAddToCartButton").click(function(){
+    $("body").on('click','#singleAddToCartButton',function(){
         if($(".option-class").length) {
             var popUpContent = $("#popUpForm").html();
             popUpContent = popUpContent.replace("popUpFormInner", "popUpFormInnerActive");
@@ -347,7 +347,33 @@ $(function(){
         else{
             addSingleProductData(false);
         }
+        $("#singleAddToCartContainer").html('<div class="in_cart" ><center><button class="btn-dark2">In Cart</button></center></div>');
     });
+    
+    $("#submitProdReview").click(function(){
+        $reviewForm = $("#reviewForm");
+        var itemRequest = BLC.serializeObject($reviewForm);
+        itemRequest['rating'] = $("#rateYo").rateYo("rating");
+        $.ajax({
+            url: $reviewForm.attr('action'),
+            type: "POST",
+            dataType: "json",
+            data: itemRequest,
+            error: function(data)
+            {
+                $.alert({
+                    title: '',
+                    content: data.responseText,
+                    buttons: {
+                        ok: function () {
+                            window.location.reload();
+                        }
+                    }
+                });
+            }
+        });
+    });
+    
     
 //    $("body").on("change",".popup-class",function(){
 //        $form = $("#addProductToCartForm");

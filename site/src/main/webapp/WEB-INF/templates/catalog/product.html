@@ -131,7 +131,7 @@
                 <div id="customer-reviews-container">
                     <blc:ratings itemId="${product.id}" />
                     <div th:if="${ratingSummary}" th:object="${ratingSummary}">
-                        <span class="title">Community Rating</span>
+                        <span class="title">Community Rating</span>ct="${ratingSummary}"
                         <div id="community-rating-container">
                             <blc:form id="community-rating" class="star-rating" th:attr="data-community-rating=*{averageRating}">
                                 <input type="radio" class="star {split:4}" /> 
@@ -225,7 +225,7 @@
             <header>Featured Products</header>
             <div id="options">
                 <div class="section">
-                     <blc:related_products productId="${product.id}"/>   
+                    <blc:related_products productId="${product.id}"/>   
                     <ul id="featured_products" class="group">
                         <li th:each="relatedProduct : ${relatedProducts}" th:object="${relatedProduct.relatedProduct}" th:include="catalog/partials/productListItem" class="product_container"></li>
                     </ul>
@@ -242,7 +242,7 @@
     </head>
     
     <div layout:fragment="content">
-        <section class="product-view" th:object="${product}">
+    <section class="product-view" th:object="${product}">
     <div class="container">
         <ul class="breadcrumb">
             <li><a th:href="@{/}">Home</a> </li>
@@ -250,19 +250,20 @@
             <li class="current" th:utext="*{name}">BROWN 1929 BLACK</li>
         </ul>
         <div class="col-md-12 col-sm-12 col-xs-12 product-title">
-                 <h2>NEW! ROYAL 38 MM - SILVER</h2>   
-                                                             <div class="price">
-                                                <h4><b>$210 USD</b></h4>
-                                                <h4 class="price2">$250 USD</h4>
-                                            </div>
-                </div>
+            <h2 th:utext="*{name}" th:title="*{name}"></h2>   
+            <div class="price">
+                <h4 th:if="*{defaultSku.onSale}"><b blc:price="*{defaultSku.salePrice}"></b></h4>
+                <h4 th:unless="*{defaultSku.onSale}"><b blc:price="*{defaultSku.retailPrice}"></b></h4>
+                <h4 class="price2" th:if="*{defaultSku.onSale}" blc:price="*{defaultSku.retailPrice}"></h4>
+            </div>
+        </div>
         <div class="col-md-12">
             <div class="center slider">
                 <div th:each="media, iterStat : *{media}">
                     <a class="info thumb" th:href="@{${media.value.url}}" data-fancybox=""><img class="img-responsive" blc:src="@{${media.value.url}}" />
                     </a>
                 </div>
-                <div>
+<!--                <div>
                     <a class="info thumb" href="/img/pauloramirezwatch1-600x6002.jpg" data-fancybox=""><img class="img-responsive" src="/img/pauloramirezwatch1-600x6002.jpg" />
                     </a>
                 </div>
@@ -273,10 +274,10 @@
                 <div>
                     <a class="info thumb" href="/img/pauloramirezwatch1-600x600.jpg" data-fancybox=""><img class="img-responsive" src="/img/pauloramirezwatch1-600x600.jpg" />
                     </a>
-                </div>
+                </div>-->
             </div>
         </div>
-        <div th:class="*{'productActions' + id} + 'col-md-12 col-sm-12 col-xs-12 col-md-offset-2'">
+        <div th:class="*{'productActions' + id + ' '} + 'col-md-12 col-sm-12 col-xs-12 col-md-offset-2'">
             <div class="col-md-2 col-sm-3 col-xs-12 product-quantity">
                 <div class="input-group" style="margin-top: 10px; border: 1px solid #212230;"> 
                     <span class="input-group-btn">
@@ -291,15 +292,22 @@
             <th:block th:with="checkInventory=*{defaultSku.inventoryType?.type == 'CHECK_QUANTITY'},
                                    availableInventory=${checkInventory ? #object.defaultSku.quantityAvailable != null and #object.defaultSku.quantityAvailable != 0 : true},
                 inCart=${cart.containsSku(#object.defaultSku) and #lists.isEmpty(product.productOptions)}">
-                <div class="col-md-4 col-sm-7 col-xs-12" th:classappend="${inCart or !availableInventory}? ' hidden'">
-                    <center>
-                       <button class="btn-dark2" id="singleAddToCartButton">Buy Now</button>
-                    </center>
-                </div>
-                <div class="col-md-4 col-sm-7 col-xs-12 out_of_stock" th:if="${!availableInventory}" >
-                    <center>
-                       <button class="btn-dark2">Out of Stock</button>
-                    </center>
+                <div class="col-md-4 col-sm-7 col-xs-12" th:id="singleAddToCartContainer">
+                    <div th:classappend="${inCart or !availableInventory}? ' hidden'">
+                        <center>
+                           <button class="btn-dark2" id="singleAddToCartButton">Buy Now</button>
+                        </center>
+                    </div>
+                    <div class="out_of_stock" th:if="${!availableInventory}" >
+                        <center>
+                           <button class="btn-dark2">Out of Stock</button>
+                        </center>
+                    </div>
+                    <div class="in_cart" th:if="${inCart}" >
+                        <center>
+                           <button class="btn-dark2">In Cart</button>
+                        </center>
+                    </div>
                 </div>
             </th:block>
             <div class="col-md-2 col-sm-2 col-xs-12">
@@ -310,55 +318,26 @@
         <div class="col-md-12 col-sm-12 col-xs-12 about">
             <p th:utext="*{longDescription}"></p>
         </div>
-        <div class="col-md-12 col-sm-12 col-xs-12 specifications">
+        
+        <blc:ratings itemId="${product.id}" />
+        
+        <div class="col-md-12 col-sm-12 col-xs-12 specifications" th:if="*{!productAttributes.isEmpty()}">
             <h2>specifications</h2>
             <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                    <table class="table">
+                <div class="col-md-6 col-sm-6 col-xs-12" th:each="productAttribute : *{productAttributes}">
+                    <table class="table" style="margin-bottom: 0px;">
                         <tbody>
                             <tr>
-                                <td><b>Model No. :</b> </td>
-                                <td>Born 1929</td>
-                            </tr>
-                            <tr>
-                                <td><b>Case Color :</b> </td>
-                                <td>Black</td>
-                            </tr>
-                            <tr>
-                                <td><b>Dail Color :</b> </td>
-                                <td>Black</td>
-                            </tr>
-                            <tr>
-                                <td><b>Case :</b> </td>
-                                <td>304L Stainless Steel Case</td>
+                                <td><b th:utext="${productAttribute.key}+' :'"></b></td>
+                                <td th:utext="${productAttribute.value}"></td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                    <table class="table">
-                        <tbody>
-                            <tr>
-                                <td><b>Case Size : </b> </td>
-                                <td> 42 x 37mm</td>
-                            </tr>
-                            <tr>
-                                <td><b>Band :</b> </td>
-                                <td> Black sleek leather strap with stainless steel buckle.</td>
-                            </tr>
-                            <tr>
-                                <td><b>Movement :</b> </td>
-                                <td>Japan Citizen Miyota</td>
-                            </tr>
-                            <tr>
-                                <td><b>Glass : </b> </td>
-                                <td>High hardness mineral glass Water resistance to 3ATM (avoid direct contact with water)</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <a href="#">
-                <h4>all specifications </h4> </a>
+                <div class="col-md-12" style="height: 30px;"></div>
+<!--                <a href="#">
+                    <h4>all specifications </h4>
+                </a>-->
             </div>
         </div>
         <div class="col-md-12 col-sm-12 col-xs-12 images">
@@ -392,15 +371,18 @@
             </div>
         </div>
         <div class="col-md-12 col-sm-12 col-xs-12 reviews">
-            <h2>CUSTOMER REVIEWS</h2>
-            <div class="star-ratings-sprite"><span style="width:72%" class="star-ratings-sprite-rating"></span> </div>
-            <h5>Based on 50 Reviews</h5>
-            <a data-fancybox="" data-src="#review-container" href="javascript:;"><h5 onclick="initFancyScroll()">View all reviews</h5></a>
-            <div class="col-md-12 col-sm-12 col-xs-12 review">
-                <h3>Sheryl Bennett</h3>
-                <div class="star-ratings-sprite"><span style="width:72%" class="star-ratings-sprite-rating"></span> </div>
-                <h4>AMAZING!!</h4>
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,</p>
+            <div th:if="${ratingSummary}" th:object="${ratingSummary}">
+                <h2>CUSTOMER REVIEWS</h2>
+                <div class="star-ratings-sprite"><span th:attr="rating-attr=*{averageRating}" style="width:0%" class="star-ratings-sprite-rating"></span> </div>
+                <h5>Based on <span th:utext="*{numberOfReviews}"></span><span th:if="*{numberOfReviews} == 1"> Review</span><span th:if="*{numberOfReviews} > 1"> Reviews</span></h5>
+                <div th:if="*{numberOfReviews} > 1">
+                    <a data-fancybox="" data-src="#review-container" href="javascript:;"><h5 onclick="initFancyScroll()">View all reviews</h5></a>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12 review">
+                    <h3 th:utext="*{reviews[0].customer.firstName}"></h3>
+                    <div class="star-ratings-sprite"><span th:attr="rating-attr=*{reviews[0].ratingDetail.rating}" style="width:0%" class="star-ratings-sprite-rating"></span> </div>
+                    <p th:if="!*{#strings.isEmpty(reviews[0].reviewText)}" th:utext="*{reviews[0].reviewText}"></p>
+                </div>
             </div>
             <center>
                 <button class="btn-dark" onclick="writeAReview()">Write Review</button>
@@ -410,28 +392,28 @@
                 <div class="modal-dialog">
                     <!-- Modal content-->
                     <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h3 style="color: #212230;" class="modal-title">RATE THIS PRODUCT</h3> 
-                            </div>
-                            <div class="modal-body">
-                                <blc:form th:action="@{'/reviews/product/' + ${product.id}}" id="reviewForm">
-                                    <h4>Overall Rating</h4>
-                                    <center>
-                                        <div id="rateYo"></div>
-                                    </center>
-                                    <div class="form-group">
-                                        <textarea class="form-control" type="textarea" id="message" placeholder="Your Review" maxlength="140" rows="7"></textarea> <span class="help-block">
-                                        <p id="characterLeft" class="help-block ">50 character minimum. Focus on the product and your experience using it.</p>
-                                        </span>
-                                    </div>
-                                </blc:form>
-                            </div>
-                            <div class="modal-footer">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h3 style="color: #212230;" class="modal-title">RATE THIS PRODUCT</h3> 
+                        </div>
+                        <div class="modal-body" id="review-body">
+                            <blc:form th:action="@{'/reviews/product/' + ${product.id}}" id="reviewForm">
+                                <h4>Overall Rating</h4>
                                 <center>
-                                    <button class="btn-dark1"> Post Review</button>
+                                    <div id="rateYo"></div>
                                 </center>
-                            </div>
+                                <div class="form-group">
+                                    <textarea class="form-control" type="textarea" name="reviewText" id="message" placeholder="Your Review" maxlength="140" rows="7"></textarea> <span class="help-block">
+                                    <p id="characterLeft" class="help-block ">50 character minimum. Focus on the product and your experience using it.</p>
+                                    </span>
+                                </div>
+                            </blc:form>
+                        </div>
+                        <div class="modal-footer">
+                            <center>
+                                <button class="btn-dark1" id="submitProdReview"> Post Review</button>
+                            </center>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -440,74 +422,58 @@
         
         
         <main id="review-container" style="display: none;">
+            <blc:ratings itemId="${product.id}" />
+            <div th:if="${ratingSummary}" th:object="${ratingSummary}">
 
-            <div id="fancyscroll" class="container" style="height: calc(100vh - 140px);">
-            <section class="all-reviews"  th:if="${ratingSummary}" th:object="${ratingSummary}">
-            <div class="col-md-12 col-sm-12 col-xs-12 my-banner">
-                <img class="img-responsive" src="/img/reviews.jpg" />
-            </div>
-                <div class="col-md-12 col-sm-12 col-xs-12 reviews">
-                    <h2>CUSTOMER REVIEWS</h2>
-                    <div class="star-ratings-sprite"><span style="width:72%" class="star-ratings-sprite-rating"></span> </div>
-                    <h5>Based on 50 Reviews</h5>
-                    <div class="col-md-12 col-sm-12 col-xs-12 review-all" th:each="review, iterStat : *{reviews}" th:object="${review}">
-                        <h3 th:utext="${review.customer.firstName}">Review user</h3>
-                        <div class="star-ratings-sprite"><span style="width:72%" class="star-ratings-sprite-rating"></span> </div>
-                        <h4 utext="*{ratingDetail.rating}">AMAZING!!</h4>
-                        <p th:if="!*{#strings.isEmpty(reviewText)}" th:utext="'&quot;' + *{reviewText} + '&quot;'"></p>
-                    </div>
-                    <div class="col-md-12 col-sm-12 col-xs-12 review-all">
-                        <h3>Donald Byrd</h3>
-                        <div class="star-ratings-sprite"><span style="width:72%" class="star-ratings-sprite-rating"></span> </div>
-                        <h4>AMAZING!!</h4>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, Pri quas audiam virtute ut, case utamur fuisset eam ut, iisque accommodare an eam. Reque blandit qui eu, cu vix nonumy volumus. Legendos intellegam id usu, vide oporteat vix eu, id illud principes has. Nam tempor utamur gubergren no.</p>
-                    </div>
-                    <div class="col-md-12 col-sm-12 col-xs-12 review-all">
-                        <h3>Domingo Montgomery</h3>
-                        <div class="star-ratings-sprite"><span style="width:72%" class="star-ratings-sprite-rating"></span> </div>
-                        <h4>AMAZING!!</h4>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, Pri quas audiam virtute ut, case utamur fuisset eam ut, iisque accommodare an eam. Reque blandit qui eu, cu vix nonumy volumus. Legendos intellegam id usu, vide oporteat vix eu, id illud principes has. Nam tempor utamur gubergren no.</p>
-                    </div>
-                                        <div class="col-md-12 col-sm-12 col-xs-12 review-all">
-                        <h3>Cynthia Webster</h3>
-                        <div class="star-ratings-sprite"><span style="width:72%" class="star-ratings-sprite-rating"></span> </div>
-                        <h4>AMAZING!!</h4>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, Pri quas audiam virtute ut, case utamur fuisset eam ut, iisque accommodare an eam. Reque blandit qui eu, cu vix nonumy volumus. Legendos intellegam id usu, vide oporteat vix eu, id illud principes has. Nam tempor utamur gubergren no.</p>
-                    </div>
+                <div id="fancyscroll" class="container" style="height: calc(100vh - 140px);">
+                    <section class="all-reviews">
+                        <div class="col-md-12 col-sm-12 col-xs-12 my-banner">
+                            <img class="img-responsive" src="/img/reviews.jpg" />
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12 reviews">
+                            <h2>CUSTOMER REVIEWS</h2>
+                            <div class="star-ratings-sprite"><span th:attr="rating-attr=*{averageRating}" style="width:0%" class="star-ratings-sprite-rating"></span> </div>
+                            <h5>Based on <span th:utext="*{numberOfReviews}"></span><span th:if="*{numberOfReviews} == 1"> Review</span><span th:if="*{numberOfReviews} > 1"> Reviews</span></h5>
+                            <div class="col-md-12 col-sm-12 col-xs-12 review-all" th:each="review, iterStat : *{reviews}" th:object="${review}">
+                                <h3 th:utext="${review.customer.firstName}"></h3>
+                                <div class="star-ratings-sprite"><span th:attr="rating-attr=*{ratingDetail.rating}" style="width:0%" class="star-ratings-sprite-rating"></span> </div>
+                                <p th:if="!*{#strings.isEmpty(reviewText)}" th:utext="*{reviewText}"></p>
+                            </div>
+                        </div>
+                    </section>
                 </div>
-                </section>
-</div>
-    </main>
+            </div>
+        </main>
         
         
         <blc:form method="POST" th:action="@{/cart/add}" id="addProductToCartForm" style="display: none;">
-                        <div class="product-option-nonjs" th:each="productOption : *{productOptions}" th:object="${productOption}">
-                            <div class="form50">
-                                <label th:utext="*{label}"></label>
-                                <select th:name="${'itemAttributes[' + productOption.attributeName + ']'}" class="option-class">
-                                    <option th:each="optionValue : *{allowedValues}" th:object="${optionValue}" th:utext="*{attributeValue}"></option>
-                                </select>
-                            </div>
-                        </div>
+            <div class="product-option-nonjs" th:each="productOption : *{productOptions}" th:object="${productOption}">
+                <div class="form50">
+                    <label th:utext="*{label}"></label>
+                    <select th:name="${'itemAttributes[' + productOption.attributeName + ']'}" class="option-class">
+                        <option th:each="optionValue : *{allowedValues}" th:object="${optionValue}" th:utext="*{attributeValue}"></option>
+                    </select>
+                </div>
+            </div>
 
-                        <div th:utext="*{longDescription}" id="description"></div>
-                        
-                        <div id="inventory" th:if="${checkInventory}">
-                            <b>Available inventory:</b> <span th:utext="*{defaultSku.quantityAvailable == null ? '0' : defaultSku.quantityAvailable}" />
-                            <div th:if="${!availableInventory}" class="out_of_stock">
-                                <a disabled="disabled" class="big-button gray-button">Out of Stock</a>
-                            </div>
-                        </div>
-                        
-                        <div th:class="*{'productActions' + id}">
-                            <div class="add_to_cart">
-                                <input type="hidden" name="productId" th:value="*{id}" />
-                                <input type="hidden" name="quantity" value="1" />
-                                <input type="submit" class="addToCart big red" th:value="#{product.buyNow}"/>
-                            </div>
-                            <p class="error" th:if="${param.errorMessage}" th:utext="${param.errorMessage[0]}"></p>
-                        </div>
-                    </blc:form>
+            <div th:utext="*{longDescription}" id="description"></div>
+
+            <div id="inventory" th:if="${checkInventory}">
+                <b>Available inventory:</b> <span th:utext="*{defaultSku.quantityAvailable == null ? '0' : defaultSku.quantityAvailable}" />
+                <div th:if="${!availableInventory}" class="out_of_stock">
+                    <a disabled="disabled" class="big-button gray-button">Out of Stock</a>
+                </div>
+            </div>
+
+            <div th:class="*{'productActions' + id}">
+                <div class="add_to_cart">
+                    <input type="hidden" name="productId" th:value="*{id}" />
+                    <input type="hidden" name="quantity" value="1" />
+                    <input type="submit" class="addToCart big red" th:value="#{product.buyNow}"/>
+                </div>
+                <p class="error" th:if="${param.errorMessage}" th:utext="${param.errorMessage[0]}"></p>
+            </div>
+        </blc:form>
         
         <div style="display:none;" id="popUpForm">
             <blc:form id="popUpFormInner" method="POST" th:action="@{/cart/add}">
@@ -543,170 +509,26 @@
         </div>
         
         
-        <div class="col-md-12 col-sm-12 col-xs-12 related-items">
-        <h2>YOU MIGHT ALSO LIKE</h2>
-        <div id="myCarousel5" class="carousel slide">
-        <!-- Carousel items -->
-        <div class="carousel-inner">
-        <div class="item active">
-        <div class="row">
-        <div class="col-md-4 col-sm-4 col-xs-12 result">
-        <center>
-        <div class="product-img"> <img class="img-responsive" src="/img/d.jpg" />
-        <a data-toggle="modal" data-target="#myModal2" href=""> <img class="img-responsive top1" src="/img/pauloramirezwatch1-600x600.jpg" /> </a>
-        </div>
-        <div class="title">
-        <h4>NEW! ROYAL 38 MM - SILVER</h4> </div>
-        <div class="price">
-        <h4><b>$210 USD</b></h4>
-        <h4 class="price2">$250 USD</h4>
-        <!-- <h5>10% off</h5> -->
-        </div>
-        <button class="btn-dark">Add To Cart</button>
-        </center>
-        </div>
-        <div class="col-md-4 col-sm-4 col-xs-12 result">
-        <center>
-        <div class="product-img"> <img class="img-responsive" src="/img/d.jpg" />
-        <a data-toggle="modal" data-target="#myModal2" href=""> <img class="img-responsive top1" src="/img/pauloramirezwatch1-600x600.jpg" /> </a>
-        </div>
-        <div class="title">
-        <h4>NEW! ROYAL 38 MM - SILVER</h4> </div>
-        <div class="price">
-        <h4><b>$210 USD</b></h4>
-        <h4 class="price2">$250 USD</h4>
-        <!-- <h5>10% off</h5> -->
-        </div>
-        <button class="btn-dark">Add To Cart</button>
-        </center>
-        </div>
-        <div class="col-md-4 col-sm-4 col-xs-12 result">
-        <center>
-        <div class="product-img"> <img class="img-responsive" src="/img/d.jpg"/>
-        <a data-toggle="modal" data-target="#myModal2" href=""> <img class="img-responsive top1" src="/img/pauloramirezwatch1-600x600.jpg" /> </a>
-        </div>
-        <div class="title">
-        <h4>NEW! ROYAL 38 MM - SILVER</h4> </div>
-        <div class="price">
-        <h4><b>$210 USD</b></h4>
-        <h4 class="price2">$250 USD</h4>
-        <!-- <h5>10% off</h5> -->
-        </div>
-        <button class="btn-dark">Add To Cart</button>
-        </center>
-        </div>
-        </div>
-        <!--/row-->
-        </div>
-        <!--/item-->
-        <div class="item">
-        <div class="row">
-        <div class="col-md-4 col-sm-4 col-xs-12 result">
-        <center>
-        <div class="product-img"> <img class="img-responsive" src="/img/d.jpg" />
-        <a data-toggle="modal" data-target="#myModal2" href=""> <img class="img-responsive top1" src="/img/pauloramirezwatch1-600x600.jpg" /> </a>
-        </div>
-        <div class="title">
-        <h4>NEW! ROYAL 38 MM - SILVER</h4> </div>
-        <div class="price">
-        <h4><b>$210 USD</b></h4>
-        <h4 class="price2">$250 USD</h4>
-        <!-- <h5>10% off</h5> -->
-        </div>
-        <button class="btn-dark">Add To Cart</button>
-        </center>
-        </div>
-        <div class="col-md-4 col-sm-4 col-xs-12 result">
-        <center>
-        <div class="product-img"> <img class="img-responsive" src="/img/d.jpg" />
-        <a data-toggle="modal" data-target="#myModal2" href=""> <img class="img-responsive top1" src="/img/pauloramirezwatch1-600x600.jpg" /> </a>
-        </div>
-        <div class="title">
-        <h4>NEW! ROYAL 38 MM - SILVER</h4> </div>
-        <div class="price">
-        <h4><b>$210 USD</b></h4>
-        <h4 class="price2">$250 USD</h4>
-        <!-- <h5>10% off</h5> -->
-        </div>
-        <button class="btn-dark">Add To Cart</button>
-        </center>
-        </div>
-        <div class="col-md-4 col-sm-4 col-xs-12 result">
-        <center>
-        <div class="product-img"> <img class="img-responsive" src="/img/d.jpg" />
-        <a data-toggle="modal" data-target="#myModal2" href=""> <img class="img-responsive top1" src="/img/pauloramirezwatch1-600x600.jpg" /> </a>
-        </div>
-        <div class="title">
-        <h4>NEW! ROYAL 38 MM - SILVER</h4> </div>
-        <div class="price">
-        <h4><b>$210 USD</b></h4>
-        <h4 class="price2">$250 USD</h4>
-        <!-- <h5>10% off</h5> -->
-        </div>
-        <button class="btn-dark">Add To Cart</button>
-        </center>
-        </div>
-        </div>
-        <!--/row-->
-        </div>
-        <!--/item-->
-        <div class="item">
-        <div class="row">
-        <div class="col-md-4 col-sm-4 col-xs-12 result">
-        <center>
-        <div class="product-img"> <img class="img-responsive" src="/img/d.jpg" />
-        <a data-toggle="modal" data-target="#myModal2" href=""> <img class="img-responsive top1" src="/img/pauloramirezwatch1-600x600.jpg" /> </a>
-        </div>
-        <div class="title">
-        <h4>NEW! ROYAL 38 MM - SILVER</h4> </div>
-        <div class="price">
-        <h4><b>$210 USD</b></h4>
-        <h4 class="price2">$250 USD</h4>
-        <!-- <h5>10% off</h5> -->
-        </div>
-        <button class="btn-dark">Add To Cart</button>
-        </center>
-        </div>
-        <div class="col-md-4 col-sm-4 col-xs-12 result">
-        <center>
-        <div class="product-img"> <img class="img-responsive" src="/img/d.jpg" />
-        <a data-toggle="modal" data-target="#myModal2" href=""> <img class="img-responsive top1" src="/img/pauloramirezwatch1-600x600.jpg" /> </a>
-        </div>
-        <div class="title">
-        <h4>NEW! ROYAL 38 MM - SILVER</h4> </div>
-        <div class="price">
-        <h4><b>$210 USD</b></h4>
-        <h4 class="price2">$250 USD</h4>
-        <!-- <h5>10% off</h5> -->
-        </div>
-        <button class="btn-dark">Add To Cart</button>
-        </center>
-        </div>
-        <div class="col-md-4 col-sm-4 col-xs-12 result">
-        <center>
-        <div class="product-img"> <img class="img-responsive" src="/img/d.jpg" />
-        <a data-toggle="modal" data-target="#myModal2" href=""> <img class="img-responsive top1" src="/img/pauloramirezwatch1-600x600.jpg" /> </a>
-        </div>
-        <div class="title">
-        <h4>NEW! ROYAL 38 MM - SILVER</h4> </div>
-        <div class="price">
-        <h4><b>$210 USD</b></h4>
-        <h4 class="price2">$250 USD</h4>
-        <!-- <h5>10% off</h5> -->
-        </div>
-        <button class="btn-dark">Add To Cart</button>
-        </center>
-        </div>
-        </div>
-        <!--/row-->
-        </div>
-        <!--/item-->
-        </div>
-        <!--/carousel-inner-->
-        <a class="my-left" href="#myCarousel5" data-slide="prev"><img src="/img/left.png" /> </a>
-        <a class="my-right" href="#myCarousel5" data-slide="next"><img src="/img/right.png" /> </a>
-        </div>
-        <!--/myCarousel-->
+        <div class="col-md-12 col-sm-12 col-xs-12 related-items" th:if="${relatedProducts}">
+            <h2>YOU MIGHT ALSO LIKE</h2>
+            
+            <div id="myCarousel5" class="carousel slide">
+                <!-- Carousel items -->
+                <div class="carousel-inner">
+                    <div class="item active">
+                        <blc:related_products productId="${product.id}"/>
+                        <div class="group row">
+                            <div class="col-md-4 col-sm-4 col-xs-12 result product_container" th:each="relatedProduct,iter : ${relatedProducts}" th:object="${relatedProduct.relatedProduct}" th:include="catalog/partials/productListItem">
+                            </div>
+                        </div>
+                        <!--/row-->
+                    </div>
+                </div>
+                <!--/carousel-inner-->
+                <a class="my-left" href="#myCarousel5" data-slide="prev"><img src="/img/left.png" /> </a>
+                <a class="my-right" href="#myCarousel5" data-slide="next"><img src="/img/right.png" /> </a>
+            </div>
+            <!--/myCarousel-->
         </div>
         <!--Quick-view Modal  -->
         <div class="modal fade" id="myModal2" role="dialog">

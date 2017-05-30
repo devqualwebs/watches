@@ -56,6 +56,8 @@ public class CatalogEndpoint extends
     @Override
     @RequestMapping(value = "product/{id}", method = RequestMethod.GET)
     public ProductWrapper findProductById(HttpServletRequest request, @PathVariable("id") Long id) {
+        ProductWrapper pw = super.findProductById(request, id);
+//        pw.
         return super.findProductById(request, id);
     }
 
