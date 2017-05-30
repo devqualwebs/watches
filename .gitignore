@@ -15,8 +15,12 @@ data/
 .svn
 site/solrhome
 site/src/main/resources/webapp
+site/pom.xml
+site/src/main/resources/runtime-properties/development.properties
 combined/data/
 combined/solrhome
 *.error
 .DS_Store
 .vagrant
+database.properties
+
