@@ -40,7 +40,7 @@
         <sec:intercept-url pattern="/register*" requires-channel="https" />
         <sec:intercept-url pattern="/login*/**" requires-channel="https" />
         <sec:intercept-url pattern="/account/**" access="ROLE_USER" requires-channel="https" />
-        <sec:intercept-url pattern="/checkout/**" requires-channel="https" />
+        <sec:intercept-url pattern="/checkout*/**" requires-channel="https" />
         <sec:intercept-url pattern="/sample-checkout/**" requires-channel="https" />
         <sec:intercept-url pattern="/sample-giftcard/**" requires-channel="https" />
         <sec:intercept-url pattern="/confirmation/**" requires-channel="https" />

@@ -1,10 +1,11 @@
 <div th:fragment="billing-info-form">
 
     <div class="cart_title">
-        <span th:utext="#{cart.billingInformation}">Billing Information</span>
+        <h3 th:utext="#{cart.billingInformation}">Billing Information</h3>
         <a th:if="${'SAVED' == sectionDTO.state.type}"
            th:href="@{/checkout(edit-billing='true')}">
-            <span th:utext="#{cart.edit}">Edit</span>
+            <!--<span th:utext="#{cart.edit}">Edit</span>-->
+            <button class="btn btn-dark">Edit</button>
         </a>
     </div>
 
@@ -17,7 +18,7 @@
 
     <blc:form th:object="${billingInfoForm}"
               th:action="@{/checkout/billing}"
-              method="post" id="billing_info"
+              method="POST" id="billing_info"
               novalidate="novalidate">
 
         <div th:if="${'SAVED' == sectionDTO.state.type
@@ -25,17 +26,39 @@
              th:inline="text" class="clearfix">
             <div class="group shipping-info-read-only">
                 <h3><span th:utext="#{cart.billingAddress}">Billing Address</span></h3>
-                <address th:if="*{address.phonePrimary !=null and address.phonePrimary.phoneNumber != null}">
-                    [[*{address.firstName}]]&nbsp;[[*{address.lastName}]]<br />
-                    [[*{address.addressLine1}]]<br /> [[*{address.addressLine2}]]<br th:if="!*{#strings.isEmpty(address.addressLine2)}" />
-                    [[*{address.city}]],&nbsp;[[*{address.stateProvinceRegion}]]&nbsp;[[*{address.postalCode}]]<br />
-                    [[*{address.phonePrimary.phoneNumber}]]
-                </address>
-                <address th:if="*{address.phonePrimary == null or address.phonePrimary.phoneNumber == null}">
-                    [[*{address.firstName}]]&nbsp;[[*{address.lastName}]]<br />
-                    [[*{address.addressLine1}]]<br /> [[*{address.addressLine2}]]<br th:if="!*{#strings.isEmpty(address.addressLine2)}" />
-                    [[*{address.city}]],&nbsp;[[*{address.stateProvinceRegion}]]&nbsp;[[*{address.postalCode}]]<br />
-                </address>
+                <div style="background-color: #f7f7f7; padding: 20px;">
+                    <ul th:if="*{address.phonePrimary !=null and address.phonePrimary.phoneNumber != null}">
+                        <li>
+                            <h3 style="margin-top: 0">[[*{address.firstName}]]&nbsp;[[*{address.lastName}]]</h3>
+                        </li>
+                        <li>
+                            <h5>[[*{address.addressLine1}]], [[*{address.addressLine2}]]</h5>
+                        </li>
+                        <li>
+                            <h5>[[*{address.city}]],&nbsp;[[*{address.stateProvinceRegion}]]&nbsp;[[*{address.postalCode}]]</h5>
+                        </li>
+                        <li>
+                            <h5>[[*{address.phonePrimary.phoneNumber}]]</h5>
+                        </li>
+                    </ul>
+                    <ul th:if="*{address.phonePrimary == null or address.phonePrimary.phoneNumber == null}">
+                        <li>
+                            <h3 style="margin-top: 0">[[*{address.firstName}]]&nbsp;[[*{address.lastName}]]</h3>
+                        </li>
+                        <li>
+                            <h5>[[*{address.addressLine1}]], [[*{address.addressLine2}]]</h5>
+                        </li>
+                        <li>
+                            <h5>[[*{address.city}]],&nbsp;[[*{address.stateProvinceRegion}]]&nbsp;[[*{address.postalCode}]]</h5>
+                        </li>
+                    </ul>
+                    <div class="address">
+                        <ul>
+                            <li><b><a th:if="${'SAVED' == sectionDTO.state.type}"
+                                   th:href="@{/checkout(edit-billing='true')}">Edit</a></b></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -43,94 +66,123 @@
         <div id="billing_info_form"
              th:classappend="${('SAVED' == sectionDTO.state.type or 'INACTIVE' == sectionDTO.state.type) and !#fields.hasErrors('*')} ? 'hide'">
 
-            <input type="hidden" name="address.isoCountryAlpha2" value="US" />
-
-            <div class="form30">
-                <label for="firstName"><span th:utext="#{cart.firstName}">First Name</span></label>
-                <span class="error" th:if="${#fields.hasErrors('address.firstName')}" th:errors="*{address.firstName}"></span>
-                <input type="text" th:field="*{address.firstName}"
-                       class="field30 required cloneable"
-                       th:classappend="${#fields.hasErrors('address.firstName')}? 'fieldError'" />
+            <!--<input type="hidden" name="address.isoCountryAlpha2" value="US" />-->
+            <div class="wrapper">
+                <div class="field form30 col-sm-12 col-md-12">
+                    <label for="billingInfoCountry" class="field-label">Country</label>
+                    <select id="billingInfoCountry"
+                            class="field-input required cloneable"
+                            name="address.isoCountryAlpha2">
+                        <option value="US">United States</option>
+                        <option value="MX">Mexico</option>
+                        <option value="CA">Canada</option>
+                    </select>
+                </div>
             </div>
+            
+            <div class="clearfix"></div>
+            
+            <div class="wrapper">
+                <div class="field form30 col-sm-12 col-md-6">
+                    <span class="error" th:if="${#fields.hasErrors('address.firstName')}" th:errors="*{address.firstName}"></span>
+                    <label for="firstName" class="field-label" th:utext="#{cart.firstName}">Name</label>
+                    <input type="text" id="firstName" th:field="*{address.firstName}" class="field-input field30 required cloneablet" th:classappend="${#fields.hasErrors('address.firstName')}? 'fieldError'" />
+                </div>
 
-            <div class="form30 margin20">
-                <label for="lastName"><span th:utext="#{cart.lastName}">Last Name</span></label>
-                <span class="error" th:if="${#fields.hasErrors('address.lastName')}" th:errors="*{address.lastName}"></span>
-                <input type="text"
-                       th:field="*{address.lastName}"
-                       class="field30 required cloneable"
-                       th:classappend="${#fields.hasErrors('address.lastName')}? 'fieldError'" />
+                <div class="field form30 col-sm-12 col-md-6">
+                    <span class="error" th:if="${#fields.hasErrors('address.lastName')}" th:errors="*{address.lastName}"></span>
+                    <label for="lastName" class="field-label" th:utext="#{cart.lastName}">First Name</label>
+                    <input type="text" id="lastName" th:field="*{address.lastName}" class="field-input field30 required cloneablet" th:classappend="${#fields.hasErrors('address.lastName')}? 'fieldError'" />
+                </div>
             </div>
-
-            <div class="form30 margin20">
-                <label for="phone"><span th:utext="#{cart.phone}">Phone</span></label>
-                <span class="error_spacer" th:if="${#fields.hasErrors('address.firstName') or #fields.hasErrors('address.lastName')}">error</span>
-                <input type="tel"
-                       id="address.phonePrimary"
-                       name="address.phonePrimary"
-                       th:if="*{address.phonePrimary!=null}"
-                       th:value="*{address.phonePrimary.phoneNumber}"
-                       class="field30 cloneable" />
-                <input type="tel"
-                       id="address.phonePrimary"
-                       name="address.phonePrimary"
-                       th:if="*{address.phonePrimary==null}" class="field30 cloneable" />
+            
+            <div class="clearfix"></div>
+            
+            <div class="wrapper">
+                <div class="field form30 col-sm-12 col-md-12">
+                    <span class="error_spacer" th:if="${#fields.hasErrors('address.firstName') or #fields.hasErrors('address.lastName')}">error</span>
+                    <label for="phone" class="field-label" th:utext="#{cart.phone}">Phone</label>
+                    <input type="tel"
+                           id="address.phonePrimary"
+                           name="address.phonePrimary"
+                           th:if="*{address.phonePrimary!=null}"
+                           th:value="*{address.phonePrimary.phoneNumber}"
+                           class="field-input field30 cloneable" />
+                    <input type="tel"
+                           id="address.phonePrimary"
+                           name="address.phonePrimary"
+                           th:if="*{address.phonePrimary==null}" class="field-input field30 cloneable" />
+                </div>
             </div>
 
             <div class="clearfix"></div>
 
-            <div class="form50">
-                <label for="address1"><span th:utext="#{cart.address}">Address</span></label>
-                <span class="error" th:if="${#fields.hasErrors('address.addressLine1')}" th:errors="*{address.addressLine1}"></span>
-                <input type="text"
-                       th:field="*{address.addressLine1}"
-                       class="field50 required cloneable"
-                       th:classappend="${#fields.hasErrors('address.addressLine1')}? 'fieldError'" />
+            <div class="wrapper">
+                <div class="field form50 col-sm-12 col-md-12">
+                    <span class="error" th:if="${#fields.hasErrors('address.addressLine1')}" th:errors="*{address.addressLine1}"></span>
+                    <label for="address1" th:utext="#{cart.address}" class="field-label">Address</label>
+                    <input type="text"
+                           id="address1"
+                           th:field="*{address.addressLine1}"
+                           class="field-input field50 required cloneable"
+                           th:classappend="${#fields.hasErrors('address.addressLine1')}? 'fieldError'" />
+                </div>
             </div>
-
-            <div class="form50 margin20">
-                <label for="address2"><span th:utext="#{cart.address2}">Address 2</span></label>
-                <span class="error_spacer" th:if="${#fields.hasErrors('address.addressLine1')}">error</span>
-                <input type="text"
-                       th:field="*{address.addressLine2}" class="field50 cloneable" />
-            </div>
-
+            
             <div class="clearfix"></div>
+            
+            <div class="wrapper">
+                <div class="field form50 col-sm-12 col-md-12">
+                    <span class="error" th:if="${#fields.hasErrors('address.addressLine1')}"></span>
+                    <label for="address2" th:utext="#{cart.address2}" class="field-label">Address line 2</label>
+                    <input type="text"
+                           id="address2"
+                           th:field="*{address.addressLine2}"
+                           class="field-input field50 cloneable" />
+                </div>
+            </div>
+            
+            <div class="clearfix"></div>
+            
+            <div class="wrapper">
+                <div class="col-md-12">
+                    <span class="error" th:if="${#fields.hasErrors('address.city')}" th:errors="*{address.city}"></span>
+                </div>
+                <div class="field form30 col-sm-12 col-md-4">
+                    <label for="billingCity" class="field-label">City</label>
+                    <input type="text"
+                           id="billingCity" 
+                           th:field="*{address.city}"
+                           class="field-input field25 required cloneable"
+                           th:classappend="${#fields.hasErrors('address.city')}? 'fieldError'" />
+                </div>
 
-            <div class="form30">
-                <label for="city"><span th:utext="#{cart.cityState}">City / State</span></label>
-                <span class="error" th:if="${#fields.hasErrors('address.city')}" th:errors="*{address.city}"></span>
-                <br th:if="${#fields.hasErrors('address.city')} and ${#fields.hasErrors('address.stateProvinceRegion')}"/>
-                <span class="error" th:if="${#fields.hasErrors('address.stateProvinceRegion')}" th:errors="*{address.stateProvinceRegion}"></span>
-                <input type="text"
-                       th:field="*{address.city}"
-                       class="field25 required cloneable"
-                       th:classappend="${#fields.hasErrors('address.city')}? 'fieldError'" />
+                <div class="field form30 col-sm-12 col-md-4">
+                    <label for="billingId" class="field-label">State</label>
+                    <select id="state" th:field="*{address.stateProvinceRegion}" size="1"
+                            class="field-input required cloneable"
+                            th:classappend="${#fields.hasErrors('address.stateProvinceRegion')}? 'fieldError'">
+                        <option value="">--</option>
+                        <option th:each="state : ${states}"
+                                th:value="${state.abbreviation}"
+                                th:utext="${state.abbreviation}">
 
-                <select id="state" th:field="*{address.stateProvinceRegion}" size="1" style="width: 48px;"
-                        class="required cloneable"
-                        th:classappend="${#fields.hasErrors('address.stateProvinceRegion')}? 'fieldError'">
-                    <option value="">--</option>
-                    <option th:each="state : ${states}"
-                            th:value="${state.abbreviation}"
-                            th:utext="${state.abbreviation}">
+                         </option>
+                    </select>
+                </div>
 
-                     </option>
-                </select>
+                <div class="field form25 col-sm-12 col-md-4">
+                    <span class="error" th:if="${#fields.hasErrors('address.postalCode')}" th:errors="*{address.postalCode}"></span>
+                    <label for="postal_code" class="field-label" th:utext="#{cart.postalCode}">Postal Code</label>
+                    <input type="text"
+                           th:field="*{address.postalCode}"
+                           class="field-input field25 cloneable"
+                           th:classappend="${#fields.hasErrors('address.postalCode')}? 'fieldError'" />
+                </div>
             </div>
 
-            <div class="form25 margin20">
-                <label for="postal_code"><span th:utext="#{cart.postalCode}">Postal Code</span></label>
-                <span class="error" th:if="${#fields.hasErrors('address.postalCode')}" th:errors="*{address.postalCode}"></span>
-                <input type="text"
-                       th:field="*{address.postalCode}"
-                       class="field25 cloneable"
-                       th:classappend="${#fields.hasErrors('address.postalCode')}? 'fieldError'" />
-            </div>
-
-            <div style="float:right;">
-                <input type="submit" class="medium red" value="Save Billing" />
-            </div>
+            <button type="submit" class="btn-dark" id="saveBillingInfo">Save Billing</button>
+                <!--<input type="submit" class="medium red" value="Save Billing" />-->
 
         </div>
     </blc:form>

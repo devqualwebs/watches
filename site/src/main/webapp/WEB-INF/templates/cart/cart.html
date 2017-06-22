@@ -112,7 +112,7 @@
             </div>
             <div class="col-md-12 col-sm-12 col-xs-12" th:if="${!cart.orderItems.isEmpty()}">
                 <center>
-                    <form action="checkout.html">
+                    <form action="/checkout.html">
                         <a th:href="@{/checkout}" target="_top"><button class="btn-dark">Proceed to pay <j th:unless="${cart.subTotal?.zero}" blc:price="${cart.subTotal?.subtract(cart.orderAdjustmentsValue)}"></j></button></a>
                     </form>
                 </center>

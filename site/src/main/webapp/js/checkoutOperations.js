@@ -63,6 +63,20 @@ $(function(){
         $(this).closest('dt').next().toggle();
     });
 
+//    $('body').on('click', '#saveBillingInfo', function() {
+//        var $button = $(this),
+//            $form = $button.closest('form');
+//        var itemRequest = BLC.serializeObject($form);
+//        BLC.ajax({url: $form.attr('action'), 
+//            type: "POST",
+//            dataType: "json",
+//            data: itemRequest
+//        }, function(data, extraData){
+//            console.log(data);
+//        });
+//        return false;
+//    });
+
     function togglePromoCreditOptions() {
         $('#promoCreditOptions').children('dd').each(function(){
             if ($(this).find('span.error').length == 0) {
@@ -78,6 +92,13 @@ $(function(){
 
     /* Copy Billing Form to Shipping Form Checkbox */
     $('body').on('click', 'input#use_billing_address', function() {
+        if ($(this).is(':checked')) {
+            copyBillingForm();
+        } else {
+            $(this).closest('form').find(".clearable").val("").removeAttr("disabled");
+        }
+    });
+    $('body').on('click', 'input#use_billing', function() {
         if ($(this).is(':checked')) {
             copyBillingForm();
         } else {

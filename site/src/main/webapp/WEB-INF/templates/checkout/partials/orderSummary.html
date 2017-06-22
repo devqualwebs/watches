@@ -1,4 +1,4 @@
-<div th:fragment="order-summary">
+<!--<div th:fragment="order-summary">
     <div class="cart_title">
         <span th:utext="#{cart.orderSummary}">Order Summary</span>
         <a id="cartLink" class="modalcart refreshonclose" th:href="@{/cart}">
@@ -7,14 +7,14 @@
     </div>
     <table id="cart_summary" class="order_summary">
         <thead>
-        <tr>
-            <th>&nbsp;</th>
-            <th align="left"><span th:utext="#{cart.item}">Item</span></th>
-            <th><span th:utext="#{cart.quantity}">Quantity</span></th>
-            <th> <span th:utext="#{cart.price}">Price</span></th>
-            <th> <span th:utext="#{cart.totalSavings}">Total Savings</span></th>
-            <th><span th:utext="#{cart.total}">Total</span></th>
-        </tr>
+            <tr>
+                <th>&nbsp;</th>
+                <th align="left"><span th:utext="#{cart.item}">Item</span></th>
+                <th><span th:utext="#{cart.quantity}">Quantity</span></th>
+                <th> <span th:utext="#{cart.price}">Price</span></th>
+                <th> <span th:utext="#{cart.totalSavings}">Total Savings</span></th>
+                <th><span th:utext="#{cart.total}">Total</span></th>
+            </tr>
         </thead>
         <tbody>
         <tr th:each="item : ${cart.orderItems}" th:object="${item}" th:id="${'productRow' + item.id}">
@@ -48,7 +48,7 @@
             </td>
             <td align="center" th:utext="*{quantity}"></td>
             <td align="center" blc:price="*{price}"></td>
-            <td align="center" th:if="*{adjustmentValue.zero}">---</td>
+            <td align="center" th:if="*{adjustmentValue.zero}"></td>
 
             <td align="center" class="discount" th:unless="*{adjustmentValue.zero}" >
                 <span  align="center"  blc:price="*{totalAdjustmentValue}" class="promotion" ></span>
@@ -57,6 +57,65 @@
             </td>
             <td align="center" class="value" blc:price="*{totalPrice}"></td>
         </tr>
+        </tbody>
+    </table>
+</div>-->
+
+<div class="table-responsive UUSD-1" th:fragment="order-summary">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    <div class="UUD">ITEAMS</div>
+                </th>
+                <th>QUANTITY</th>
+                <th>PRICE</th>
+                <th>SAVING</th>
+                <th>TOTAL</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="UTT" th:each="item : ${cart.orderItems}" th:object="${item}" th:id="${'productRow' + item.id}">
+                <td class="USD-2">
+                    <div class="col-md-12 col-sm-12 col-xs-12 USD-1">
+                        <div class="col-md-2 col-sm-2 col-xs-12 USD-1">
+                            <th:block th:unless="*{#lists.isEmpty(sku.productOptionValues)}" th:each="optionValue : *{sku.productOptionValues}">
+                                <img class="img-responsive" th:if="${optionValue.attributeValue == item.sku.skuMedia['primary']?.tags}" blc:src="@{*{sku.skuMedia['primary'].url}}" th:alt="*{sku.name}" />
+                                <img class="img-responsive" th:if="${optionValue.attributeValue == item.sku.skuMedia['alt1']?.tags}" blc:src="@{*{sku.skuMedia['alt1'].url}}" th:alt="*{sku.name}" />
+                                <img class="img-responsive" th:if="${optionValue.attributeValue == item.sku.skuMedia['alt2']?.tags}" blc:src="@{*{sku.skuMedia['alt2'].url}}" th:alt="*{sku.name}" />
+                            </th:block>
+                            <img class="img-responsive" th:if="*{#lists.isEmpty(sku.productOptionValues) and sku.skuMedia['primary'] != null}" blc:src="@{*{sku.skuMedia['primary'].url}}" th:alt="*{sku.name}" />
+                        </div>
+                        <div class="col-md-9 col-sm-9 col-xs-12 USD-1">
+                            <div class="col-md-12 col-sm-12 col-xs-12 USD-1 UASD-1">
+                                <h4><a th:unless="${@blSystemPropertiesService.resolveBooleanSystemProperty('solr.index.use.sku')}" th:href="@{*{product.url}}" th:utext="*{product.name}"></a></h4>
+                                <h4>
+                                    <a th:if="${@blSystemPropertiesService.resolveBooleanSystemProperty('solr.index.use.sku')} and *{sku.urlKey}" th:href="@{*{product.url} + *{sku.urlKey}}" th:inline="text">
+                                       [[*{sku.name}]] <span th:each="optionValue : *{sku.productOptionValues}" th:utext="${optionValue.attributeValue}"></span>
+                                    </a>
+                                </h4>
+                                <h4>
+                                    <a th:if="${@blSystemPropertiesService.resolveBooleanSystemProperty('solr.index.use.sku')} and !*{sku.urlKey}" th:href="@{*{product.url}}" th:inline="text">
+                                       [[*{sku.name}]] <span th:each="optionValue : *{sku.productOptionValues}" th:utext="${optionValue.attributeValue}"></span>
+                                    </a>
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <h4 th:utext="*{quantity}">1</h4>
+                </td>
+                <td>
+                    <h4 blc:price="*{price}"></h4>
+                </td>
+                <td>
+                    <h4 th:if="*{adjustmentValue.zero}">--</h4>
+                </td>
+                <td>
+                    <h4 blc:price="*{totalPrice}"></h4>
+                </td>
+            </tr>
         </tbody>
     </table>
 </div>
