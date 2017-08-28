@@ -180,7 +180,7 @@
                     </div>
                     <div class="col-md-3 col-sm-3 col-xs-12">
                         <center>
-                            <form action="product.html"><button class="btn-dark">Explore</button></form>
+                            <form action=""><button class="btn-dark">Explore</button></form>
                         </center>
                     </div>
                 </div>
@@ -269,16 +269,15 @@
             <h1 class="background"><span>New Arrivals</span></h1>
         </div>
         <div id="owl-demo" class="owl-carousel owl-theme" th:if="${products}">
-            <div class="owl-item" th:each="product : ${products}" th:object="${product}">
+            <!-- <div class="owl-item" th:each="product : ${products}" th:object="${product}">
                 <div class="hovereffect"> <img class="img-responsive" th:if="*{media['primary']}" blc:src="@{*{media['primary'].url} + '?browse'}" th:alt="*{name}" />
                     <div class="overlay">
                         <h2 th:utext="*{name}"></h2>
-                        <!--<p th:utext="*{longDescription}">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>-->
                         <a th:href="@{*{url}}"><button class="btn-light">Shop Now</button></a>
                     </div>
                 </div>
-            </div>
-<!--            <div class="owl-item">
+            </div> -->
+            <div class="owl-item">
                 <div class="hovereffect"> <img class="img-responsive" src="/img/watch2.jpg" />
                     <div class="overlay">
                         <h2>PRODUCT</h2>
@@ -292,7 +291,7 @@
                     <div class="overlay">
                         <h2>PRODUCT</h2>
                         <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                        <form action="product.html"><button class="btn-light">Shop Now</button></form>
+                        <form action=""><button class="btn-light">Shop Now</button></form>
                     </div>
                 </div>
             </div>
@@ -301,7 +300,7 @@
                     <div class="overlay">
                         <h2>PRODUCT</h2>
                         <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                        <form action="product.html"><button class="btn-light">Shop Now</button></form>
+                        <form action=""><button class="btn-light">Shop Now</button></form>
                     </div>
                 </div>
             </div>
@@ -310,7 +309,7 @@
                     <div class="overlay">
                         <h2>PRODUCT</h2>
                         <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                        <form action="product.html"><button class="btn-light">Shop Now</button></form>
+                        <form action=""><button class="btn-light">Shop Now</button></form>
                     </div>
                 </div>
             </div>
@@ -319,7 +318,7 @@
                     <div class="overlay">
                         <h2>PRODUCT</h2>
                         <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                        <form action="product.html"><button class="btn-light">Shop Now</button></form>
+                        <form action=""><button class="btn-light">Shop Now</button></form>
                     </div>
                 </div>
             </div>
@@ -328,7 +327,7 @@
                     <div class="overlay">
                         <h2>PRODUCT</h2>
                         <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                        <form action="product.html"><button class="btn-light">Shop Now</button></form>
+                        <form action=""><button class="btn-light">Shop Now</button></form>
                     </div>
                 </div>
             </div>
@@ -337,7 +336,7 @@
                     <div class="overlay">
                         <h2>PRODUCT</h2>
                         <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                        <form action="product.html"><button class="btn-light">Shop Now</button></form>
+                        <form action=""><button class="btn-light">Shop Now</button></form>
                     </div>
                 </div>
             </div>
@@ -346,7 +345,7 @@
                     <div class="overlay">
                         <h2>PRODUCT</h2>
                         <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                        <form action="product.html"><button class="btn-light">Shop Now</button></form>
+                        <form action=""><button class="btn-light">Shop Now</button></form>
                     </div>
                 </div>
             </div>
@@ -355,7 +354,7 @@
                     <div class="overlay">
                         <h2>PRODUCT</h2>
                         <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                        <form action="product.html"><button class="btn-light">Shop Now</button></form>
+                        <form action=""><button class="btn-light">Shop Now</button></form>
                     </div>
                 </div>
             </div>
@@ -364,7 +363,7 @@
                     <div class="overlay">
                         <h2>PRODUCT</h2>
                         <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                        <form action="product.html"><button class="btn-light">Shop Now</button></form>
+                        <form action=""><button class="btn-light">Shop Now</button></form>
                     </div>
                 </div>
             </div>
@@ -373,10 +372,10 @@
                     <div class="overlay">
                         <h2>PRODUCT</h2>
                         <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                        <form action="product.html"><button class="btn-light">Shop Now</button></form>
+                        <form action=""><button class="btn-light">Shop Now</button></form>
                     </div>
                 </div>
-            </div>-->
+            </div>
         </div>
     </section>
 
