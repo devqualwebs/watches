@@ -1,9 +1,5 @@
 <div th:fragment="payment-info-form">
 
-    <div class="cart_title">
-        <span th:utext="#{cart.payment.options}">Payment Options</span>
-    </div>
-
     <div class="clearfix"></div>
 
     <div class="checkout_warning"
@@ -14,24 +10,46 @@
     <div th:if="${'FORM' == sectionDTO.state.type}"
          id="payment_info_form">
 
-        <dl id="promoCreditOptions">
-            <dt>
-                <input type="checkbox" id="promoCreditOption_credit" />
-                <span th:utext="#{cart.payment.accountCredit}">Gift Cards and Customer Credit</span>
-            </dt>
-            <dd>
-                <div th:replace="checkout/partials/accountCreditForm :: account-credit-form"></div>
-            </dd>
-            <dt>
-                <input type="checkbox" id="promoCreditOption_promo" />
-                <span th:utext="#{cart.payment.promo}">Promotion Codes</span>
-            </dt>
-            <dd>
-                <div th:replace="checkout/partials/promoCodes :: promo-code-form"></div>
-            </dd>
-        </dl>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <h3 th:utext="#{cart.payment.options}">Payment Options</h3>
+            
+            <div style="display: inline-flex;" class="wrapper">
+                <div style="color:#999999;padding: 0 5px;"><i class="fa fa-cc-amex fa-3x" aria-hidden="true"></i></div>
+                <div style="color:#999999;padding: 0 5px;"><i class="fa fa-cc-mastercard fa-3x" aria-hidden="true"></i></div>
+                <div style="color:#999999;padding: 0 5px;"><i class="fa fa-cc-visa fa-3x" aria-hidden="true"></i></div>
+                <div style="color:#999999;padding: 0 5px;"><i class="fa fa-cc-discover fa-3x" aria-hidden="true"></i></div>
+                <div style="color:#999999;padding: 0 5px;"><i class="fa fa-cc-paypal fa-3x" aria-hidden="true"></i></div>
+            </div>
+            
+            <dl id="promoCreditOptions">
+                <dt>
+                    <div class="checkboxx">
+                        <div class="center-on-page">
+                            <input id="promoCreditOption_credit" type="checkbox" />
+                            <label for="promoCreditOption_credit" th:utext="#{cart.payment.accountCredit}">Gift Cards and Customer Credit</label>
+                        </div>
+                    </div>
+                </dt>
+                <dd>
+                    <div th:replace="checkout/partials/accountCreditForm :: account-credit-form"></div>
+                </dd>
+                <dt>
+                    <div class="checkboxx">
+                        <div class="center-on-page">
+                            <input id="promoCreditOption_promo" type="checkbox" />
+                            <label for="promoCreditOption_promo" th:utext="#{cart.payment.promo}">Promotion Codes</label>
+                        </div>
+                    </div>
+                </dt>
+                <dd>
+                    <div th:replace="checkout/partials/promoCodes :: promo-code-form"></div>
+                </dd>
+            </dl>
+        </div>
 
-        <div th:replace="checkout/partials/paymentMethodForm :: payment-method-form"></div>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <div th:replace="checkout/partials/paymentMethodForm :: payment-method-form"></div>
+        </div>
 
         <div class="clearfix"></div>
 

@@ -20,6 +20,7 @@ $(function(){
             $("#shipping_info input[name='" + $(this).attr('name') + "']").val($(this).val()).attr("disabled", "disabled");
             $("#shipping_info select[name='" + $(this).attr('name') + "']").val($(this).val()).attr("disabled", "disabled");
         })
+        reInitInput();
     }
     
     function showAddAddress() {

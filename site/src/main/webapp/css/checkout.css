@@ -1,10 +1,12 @@
 body {
     font-family: 'Open Sans', sans-serif;
 }
+
 .checkout {
     margin-top: 5%;
     min-height: calc(100vh - 185px);
 }
+
 .checkout .nav-tabs>li.active>a,
 .checkout .nav-tabs>li.active>a:focus,
 .checkout .nav-tabs>li.active>a:hover {
@@ -15,17 +17,21 @@ body {
     border-bottom-color: transparent;
     /*font-weight: 900;*/
 }
+
 .checkout .nav-tabs {
     border-bottom: 0;
     padding: 20px;
 }
+
 .checkout .nav-tabs>li>a {
     border: 0px solid transparent;
     border-radius: 0px 0px 0 0;
 }
+
 .checkout .nav>li>a {
     padding: 10px 28px;
 }
+
 .checkout .nav-tabs>li+li:before {
     padding: 0 5px;
     color: #9397a3;
@@ -34,12 +40,14 @@ body {
     top: 12px;
     left: -17px;
 }
+
 .checkout .nav>li>a:focus,
 .nav>li>a:hover {
     text-decoration: none;
     background-color: transparent;
     border: 0;
 }
+
 .checkout .nav-tabs>li {
     float: none;
     margin-bottom: -1px;
@@ -49,27 +57,34 @@ body {
     transition: all 0.3s ease;
     position: relative;
 }
+
 .checkout .nav>li>a {
     color: #9397a3;
 }
+
 .checkout .center-block {
     width: -webkit-max-content;
     width: -moz-max-content;
 }
+
 .checkout .modal-content {
     border: 0px solid rgba(0, 0, 0, .2);
     border-radius: 0px;
 }
+
 .checkout .modal.in .modal-dialog {
     width: 40%;
 }
+
 .UTS-1 {
     background-color: #f7f7f7;
     padding: 20px;
 }
+
 .UUSD-1 {
     border-bottom: 2px solid #ddd;
 }
+
 .UUSD-1 .table>tbody>tr>td,
 .UUSD-1 .table>tbody>tr>th,
 .UUSD-1 .table>tfoot>tr>td,
@@ -79,72 +94,116 @@ body {
     border-top: 0;
     text-align: center;
 }
+
 .UUSD-1 .table>thead>tr>th {
     padding: 25px 0px 20px 0px;
     border-top: 0;
     text-align: center;
 }
+
 .UUD {
     text-align: left;
     padding-left: 16%;
 }
+
 .UED {
     padding: 10px;
 }
+
 .USD-1 {
     padding: 0;
     text-align: left;
 }
-.USD-2 {
-    width: 60%;
-}
+
+
 .UASD-1 ul {
     padding: 0;
     list-style: none;
     display: inline-flex;
 }
+
 .UASD-1 li {
     margin-right: 20px;
     color: #9397a3;
     font-size: 12px;
 }
+
 .UASD-1 .fa {
     margin-right: 5px;
 }
+
 .UASD-1 h4 {
     color: #212230;
     /*margin-top: 0;*/
-    
     margin-bottom: 0;
     position: relative;
     transition: all 0.3 ease;
 }
+
 .UTT h4 {
     /*margin-top: 9%;*/
-    
-    margin-top: 50px;
+    margin-top: 0px;
 }
+
 .UASD-1 h4:hover {
     color: #9397a3;
 }
+
 .UASD-1 a {
     text-decoration: none;
     color: #212230;
 }
+
 .UASD-1 h4 {
     text-align: left;
 }
+
 .UASD-1 h5 {
     text-align: left;
 }
+
+.USS {
+    background-color: #f7f7f7;
+    padding: 20px;
+}
+
+.TUS {
+padding: 25px;
+}
+
+.empty .btn-dark {
+    background-color: transparent;
+    border: 1px solid #212230;
+    float: none;
+    border-radius: 0;
+    padding: 15px;
+    color: #212230;
+    width: 20%;
+    margin-top: 3%;
+    outline: none !important;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.empty .btn-dark:hover {
+    background-color: #212230;
+    color: #9397a3;
+}
+
+.empty .btn-dark:active {
+    top: 2px;
+}
+
 .product-detail {
     margin-top: 2%;
     margin-bottom: 30px;
     border-bottom: 1px solid #c5c5c5;
 }
+
 .product-detail .table {
     margin-top: 1%;
 }
+
 .product-detail .table>tbody>tr>td {
     padding: 2px;
     line-height: 1.42857143;
@@ -152,6 +211,7 @@ body {
     font-size: 18px;
     color: #212230;
 }
+
 .product-detail .table>tbody>tr>td>h4 {
     font-weight: 600;
     color: #818181;
@@ -159,9 +219,11 @@ body {
     transition: all 0.3s ease;
     position: relative;
 }
+
 .product-detail .table>tbody>tr>td>h4:hover {
     color: #212230;
 }
+
 .product-detail .table>thead>tr>th {
     vertical-align: top;
     border-bottom: 0px;
@@ -169,10 +231,12 @@ body {
     color: #212230;
     padding: 2px;
 }
+
 .price-detail {
     background-color: #f7f7f7;
     margin-top: 3.5%;
 }
+
 .UTT .btn-dark {
     background-color: transparent;
     border: 1px solid #212230;
@@ -186,30 +250,39 @@ body {
     transition: all 0.3s ease;
     position: relative;
 }
+
 .UTT .btn-dark:hover {
     background-color: #212230;
     color: #9397a3;
 }
+
 .UTT .btn-dark:active {
     top: 2px;
 }
+
 .price-detail .table {
-    margin-top: 20px;
+    margin-top: 0px!important;
+    margin-bottom: 0px;
 }
+
 .price-detail .table>tbody>tr>td {
     padding: 4px;
     line-height: 1.42857143;
     border-top: 0px;
     font-size: 18px;
     color: #212230;
+    width: 74%;
 }
+
 .price-detail .table>tbody>tr>td>h4 {
     font-weight: 600;
     color: #212230;
 }
+
 .step-2 {
     margin-top: 10px;
 }
+
 .step-2 .btn-dark {
     background-color: transparent;
     border: 1px solid #212230;
@@ -223,34 +296,43 @@ body {
     transition: all 0.3s ease;
     position: relative;
 }
+
 .step-2 .btn-dark:hover {
     background-color: #212230;
     color: #9397a3;
 }
+
 .step-2 .btn-dark:active {
     top: 2px;
 }
+
 .step-2 .table {
     margin-top: 20px;
 }
+
 .step-2 .table>thead>tr>th {
     font-size: 20px;
     border-bottom: 0px solid #ddd;
 }
+
 .step-2 ul {
     padding: 0;
     margin: 0;
 }
+
 .step-2 li {
     list-style: none;
     color: #212230;
+    margin-bottom: 15px;
 }
+
 .step-2 .checkboxx input[type="checkbox"],
 .step-2 .checkboxx input[type="radio"] {
     position: absolute;
     opacity: 0;
     z-index: -1;
 }
+
 .step-2 .checkboxx label {
     position: relative;
     display: inline-block;
@@ -261,6 +343,7 @@ body {
     line-height: 36px;
     cursor: pointer;
 }
+
 .step-2 .checkboxx label::before {
     content: " ";
     position: absolute;
@@ -273,23 +356,29 @@ body {
     border-radius: 0px;
     z-index: -1;
 }
-.step-2 .checkboxx input[type="radio"] + label::before {
+
+.step-2 .checkboxx input[type="radio"]+label::before {
     border-radius: 18px;
 }
+
+
 /* Checked */
 
-.step-2 .checkboxx input[type="checkbox"]:checked + label,
-.step-2 .checkboxx input[type="radio"]:checked + label {
+.step-2 .checkboxx input[type="checkbox"]:checked+label,
+.step-2 .checkboxx input[type="radio"]:checked+label {
     padding-left: 10px;
     color: #fff;
 }
-.step-2 .checkboxx input[type="checkbox"]:checked + label::before,
-.step-2 .checkboxx input[type="radio"]:checked + label::before {
+
+.step-2 .checkboxx input[type="checkbox"]:checked+label::before,
+.step-2 .checkboxx input[type="radio"]:checked+label::before {
     top: 0;
     width: 100%;
     height: 100%;
     background: #212230;
 }
+
+
 /* Transition */
 
 .step-2 .checkboxx label,
@@ -298,20 +387,25 @@ body {
     -o-transition: .25s all ease;
     transition: .25s all ease;
 }
+
 .step-2 .checkboxx label {
     font-weight: 400;
 }
+
+
 /*Text Input Fields*/
 
 .step-2 .wrapper {
     width: 100%;
     margin: 40px auto;
 }
+
 .step-2 .field {
     position: relative;
     height: 60px;
     padding: 16px 5px 8px 5px;
 }
+
 .step-2 .field:after,
 .field:before {
     content: '';
@@ -322,6 +416,7 @@ body {
     left: 0;
     background-color: #e7e7e7;
 }
+
 .step-2 .field:after {
     background-color: #212230;
     -moz-transform: scaleX(0);
@@ -330,6 +425,7 @@ body {
     transform: scaleX(0);
     transition: transform 0.3s;
 }
+
 .step-2 .field .field-label {
     position: relative;
     margin: 0;
@@ -346,6 +442,7 @@ body {
     transition: transform 0.3s;
     transform-origin: 0 50%;
 }
+
 .step-2 .field .field-input {
     position: relative;
     display: block;
@@ -359,20 +456,25 @@ body {
     -webkit-appearance: none;
     outline: none;
 }
+
 .step-2 .has-label .field-label {
     -moz-transform: translateY(0);
     -webkit-transform: translateY(0);
     transform: translateY(0);
 }
+
 .step-2 .is-focused .field-label {
     color: #212230;
 }
+
 .step-2 .field.is-focused::after {
     -moz-transform: scaleX(1);
     -ms-transform: scaleX(1);
     -webkit-transform: scaleX(1);
     transform: scaleX(1);
 }
+
+
 /*Text Input Fields Ends*/
 
 .step-2 .modal-footer {
@@ -381,17 +483,21 @@ body {
     width: -webkit-max-content;
     width: -moz-max-content;
 }
+
 .step-2 .modal-header {
     padding-bottom: 0px;
     border-bottom: 0px solid #e5e5e5;
     text-align: center;
 }
+
 .step-2 .modal-body {
     padding: 0 30px 0px 30px;
 }
+
 .step-2 .address ul {
     display: inline-flex;
 }
+
 .step-2 .address li {
     margin-right: 20px;
     color: #818181;
@@ -399,9 +505,11 @@ body {
     transition: all 0.3s ease;
     position: relative;
 }
+
 .step-2 .address li:hover {
     color: #212230;
 }
+
 .step-2 .payment-method .form-control {
     display: block;
     width: 100%;
@@ -416,19 +524,23 @@ body {
     border-radius: 0px;
     box-shadow: none;
 }
+
 .text h5 {
     text-align: center;
     color: #818181;
     margin-top: 15%;
 }
+
 .step-3 .product-detail-1 {
     margin-top: 2%;
     margin-bottom: 2%;
     border-bottom: 1px solid #c5c5c5;
 }
+
 .step-3 .product-detail-1 .table {
     margin-top: 1%;
 }
+
 .step-3 .product-detail-1 .table>tbody>tr>td {
     padding: 2px;
     line-height: 1.42857143;
@@ -436,9 +548,11 @@ body {
     font-size: 18px;
     color: #212230;
 }
+
 .step-3 .product-detail-1 .table>tbody>tr>td>h4:hover {
     color: #212230;
 }
+
 .step-3 .product-detail-1 .table>thead>tr>th {
     vertical-align: top;
     border-bottom: 0px;
@@ -446,47 +560,59 @@ body {
     color: #212230;
     padding: 2px;
 }
+
 .step-3 .status .table {
     margin-top: 0;
     margin-bottom: 10px;
 }
+
 .step-3 .status .table>tbody>tr>td {
     border: 0;
 }
+
 .step-3 .status .table>tbody>tr>td>h4 {
     margin: 0;
     color: #212230;
 }
+
 .step-3 .status .TD1 {
     width: 26%;
 }
+
 .step-3 .status .TD2 {
     width: 40%;
 }
+
 .step-3 .status-2 .TD3 {
     width: 23%;
     padding-left: 0;
 }
+
 .step-3 .status-2 .TD4 {
     width: 29%;
 }
+
 .step-3 .order-details {
     padding: 7px;
     margin-top: 1%;
 }
+
 .step-3 .order-details ul {
     padding: 0;
     margin: 0;
 }
+
 .step-3 .order-details li {
     list-style: none;
     color: #212230;
     margin-bottom: 15px;
 }
+
 .step-3 .order-details .table>tbody>tr>td {
     border: 0;
     padding: 0px 0px 15px 0px;
 }
+
 .step-3 .btn-dark {
     background-color: transparent;
     border: 1px solid #212230;
@@ -499,16 +625,21 @@ body {
     transition: all 0.3s ease;
     position: relative;
 }
+
 .step-3 .btn-dark:hover {
     background-color: #212230;
     color: #9397a3;
 }
+
 .step-3 .btn-dark:active {
     top: 2px;
 }
+
 .UT-1 {
     margin-bottom: 20px;
 }
+
+
 /*Footer Starts*/
 
 #footer {
@@ -520,10 +651,12 @@ body {
     /*    position: absolute;
     bottom: 0;*/
 }
+
 #footer ul {
     padding: 0;
     margin: 0;
 }
+
 #footer li {
     list-style: none;
     display: inline-block;
@@ -531,37 +664,20 @@ body {
     font-size: 18px;
     padding: 8px;
 }
+
 #footer a {
     color: #9397a3;
     text-decoration: none;
 }
+
 #footer h4 {
     text-align: center;
     color: #9397a3;
 }
+
+
 /*footer Ends*/
 
-/*Empty button styles*/
-.empty .btn-dark {
-    background-color: transparent;
-    border: 1px solid #212230 ;
-    float: none;
-    border-radius: 0;
-    padding: 15px;
-    color: #212230 ;
-    width: 20%;
-    margin-top: 3%;
-    outline: none !important;
-    transition: all 0.3s ease;
-    position: relative;
-}
-.empty .btn-dark:hover {
-    background-color: #212230 ;
-    color: #9397a3 ;
-}
-.empty .btn-dark:active {
-    top: 2px;
-}
 
 /*Media Queries Starts*/
 
@@ -590,48 +706,48 @@ body {
     .checkout .footer {
         position: relative;
     }
-    .checkout .nav-tabs > li {
+    .checkout .nav-tabs>li {
         font-size: 28px;
     }
-    .checkout .nav-tabs > li + li::before {
+    .checkout .nav-tabs>li+li::before {
         top: 16px;
         font-size: 20px;
     }
-    .product-detail .table > thead > tr > th {
+    .product-detail .table>thead>tr>th {
         font-size: 16px;
     }
-    .product-detail .table > tbody > tr > td {
+    .product-detail .table>tbody>tr>td {
         padding: 2px;
         font-size: 14px;
     }
-    .product-detail .table > tbody > tr > td > h4 {
+    .product-detail .table>tbody>tr>td>h4 {
         font-size: 16px;
     }
     .shopping h3 {
         font-size: 22px;
     }
-    .price-detail .table > tbody > tr > td {
+    .price-detail .table>tbody>tr>td {
         padding: 2px;
         font-size: 16px;
     }
-    .step-3 .product-detail-1 .table > thead > tr > th {
+    .step-3 .product-detail-1 .table>thead>tr>th {
         font-size: 16px;
         padding: 2px;
     }
-    .step-3 .product-detail-1 .table > tbody > tr > td {
+    .step-3 .product-detail-1 .table>tbody>tr>td {
         padding: 2px;
         font-size: 16px;
     }
-    .step-3 .status .table > tbody > tr > td > h4 {
+    .step-3 .status .table>tbody>tr>td>h4 {
         font-size: 16px;
     }
     .step-3 .product-detail-1 .table {
         margin-top: 1%;
         margin-bottom: 5px;
     }
-    .checkout .nav-tabs > li.active > a,
-    .checkout .nav-tabs > li.active > a:focus,
-    .checkout .nav-tabs > li.active > a:hover {
+    .checkout .nav-tabs>li.active>a,
+    .checkout .nav-tabs>li.active>a:focus,
+    .checkout .nav-tabs>li.active>a:hover {
         font-weight: 600;
     }
     #footer li {
@@ -641,6 +757,7 @@ body {
         font-size: 16px;
     }
 }
+
 @media only screen and (max-width: 1280px) {
     .checkout {
         margin-top: 7%;
@@ -652,6 +769,7 @@ body {
         font-size: 16px;
     }
 }
+
 @media only screen and (max-width: 1024px) {
     .checkout {
         margin-top: 10%;
@@ -696,6 +814,7 @@ body {
         font-size: 14px;
     }
 }
+
 @media only screen and (max-width: 768px) {
     .checkout {
         margin-top: 12%;
@@ -745,4 +864,6 @@ body {
         margin-top: 34px;
     }
 }
+
+
 /*Media Queries Ends*/

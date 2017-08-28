@@ -1,9 +1,9 @@
 <div th:fragment="promo-code-form">
     <blc:form class="manage-promo" method="POST" th:action="@{/cart/promo}">
         <div class="form50">
-            <label class="prompt" for="checkoutPromo"><span th:utext="#{cart.promoCode}">Promo Code</span>:</label>
-            <div class="form100">
-                <input id="checkoutPromo" name="promoCode" class="field35" type="text" value="" autocomplete="off"/>
+            <div class="field form100">
+                <label class="prompt field-label" for="checkoutPromo" th:utext="#{cart.promoCode}">Promo Code</label>
+                <input id="checkoutPromo" name="promoCode" class="field-input field35" type="text" value="" autocomplete="off"/>
                 <div th:each="promo : ${cart.addedOfferCodes}" th:object="${promo}" th:remove="tag">
                     <div class="promo"><span th:utext="*{offerCode}" th:remove="tag"/> <a class="remove_promo" th:href="@{/cart/promo/remove(offerCodeId=*{id})}"><i class="icon-remove"></i></a></div>
                 </div>
@@ -12,7 +12,7 @@
         </div>
 
         <div>
-            <input type="submit" id="addPromo" name="addPromo" th:value="#{cart.applyDiscount}" class="medium red apply" />
+            <button type="submit" id="addPromo" class="btn-dark red apply" th:utext="#{cart.applyDiscount}"></button>
         </div>
 
         <div class="clearfix"></div>

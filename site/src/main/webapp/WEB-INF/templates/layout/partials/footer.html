@@ -105,6 +105,24 @@
 <script src="/js/jquery.rateyo.js"></script>
 <script src="/js/jquery.fancybox.min.js"></script>
 <script src="/js/slick.js"></script>
+
+<script>
+    function reInitInput()
+    {
+        $('.field-input').each(function(){
+            $parent = $(this).parent();
+            if ($(this).val() == '') {
+                $parent.removeClass('has-label');
+            }
+            else
+            {
+                if(!$parent.hasClass('has-label')) {
+                    $parent.addClass('has-label');
+                }
+            }
+        });
+    }
+</script>
 <!--<script src="/js/2/ninja-slider.js" type="text/javascript"></script>-->
 
 <!--<script th:inline="text">

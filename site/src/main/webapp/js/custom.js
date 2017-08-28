@@ -11,6 +11,9 @@ function closeNav() {
 
 $(document).ready(function() {
     
+    // Initializing input effect
+    reInitInput();
+    
     // Initializing display rating
     $(".star-ratings-sprite-rating").each(function(){
         var dRating = $(this).attr('rating-attr');
@@ -155,6 +158,7 @@ $(document).ready(function() {
         }
         $parent.removeClass('is-focused');
     });
+    
     var concent = false;
     var passValid = false;
     $('#cb1').change(function(){

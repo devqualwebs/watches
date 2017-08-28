@@ -2,11 +2,11 @@
 
     <div class="cart_title">
         <span th:utext="#{cart.shippingInformation}">Shipping Information</span>
-        <a th:if="${'SAVED' == sectionDTO.state.type
+<!--        <a th:if="${'SAVED' == sectionDTO.state.type
                         and cart.fulfillmentGroups != null and numShippableFulfillmentGroups == 1}"
            th:href="@{/checkout(edit-shipping='true')}">
             <span th:utext="#{cart.edit}">Edit</span>
-        </a>
+        </a>-->
     </div>
 
     <div class="clearfix"></div>

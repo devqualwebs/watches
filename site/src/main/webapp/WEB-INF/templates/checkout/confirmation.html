@@ -1,4 +1,4 @@
-<div layout:decorator="layout/fullPageNoNavLayout" layout:fragment="content">
+<!--<div layout:decorator="layout/fullPageNoNavLayout" layout:fragment="content">
     <head>
         <title th:utext="|Order Confirmation ${order.orderNumber}|"></title>
     </head>
@@ -53,7 +53,7 @@
                 </td>
                 <td align="center" th:utext="*{quantity}"></td>
                 <td align="center" blc:price="*{price}"></td>
-                <td align="center" th:if="*{adjustmentValue.zero}">---</td>
+                <td align="center" th:if="*{adjustmentValue.zero}"></td>
                 <td align="center" class="discount" th:unless="*{adjustmentValue.zero}" >
                   <span  align="center"  blc:price="*{totalAdjustmentValue}" class="promotion" ></span>
                      <div class="productOptions" th:substituteby="catalog/partials/offers :: offers"></div>
@@ -73,7 +73,7 @@
                 </tr>
                 <tr>
                     <td><span th:utext="#{confirmation.promotions}">Promotions</span></td>
-                    <td class="discount" th:if="${order.orderAdjustmentsValue.zero}">---</td>
+                    <td class="discount" th:if="${order.orderAdjustmentsValue.zero}"></td>
                     <td class="discount" th:unless="*{order.orderAdjustmentsValue.zero}" blc:price="${order.orderAdjustmentsValue}"></td>
                 </tr>
                 <tr>
@@ -180,4 +180,201 @@
         </div>
     </div>
 
+</div>-->
+
+<div layout:decorator="layout/fullPageNoNavLayout" layout:fragment="content">
+    
+    <head>
+        <title th:utext="|Order Confirmation ${order.orderNumber}|"></title>
+    </head>
+    
+    <div class="container">
+        
+        <div class="col-md-12 col-sm-12 col-xs-12" id="order_confirmation">
+            <h2 style="text-align:center;margin-bottom:15px;"><span th:utext="#{confirmation.success}">Success!</span></h2>
+            <h3 style="text-align:center;margin-bottom:15px;"><span th:utext="#{confirmation.orderNum}">Order Confirmation #</span> - <span th:utext="${order.orderNumber}"/></h3>
+            <p style="text-align:center;margin-bottom:15px;" class="confirmation-note"><span th:utext="#{confirmation.confirmEmail.toBeSent}">A confirmation email will be sent to</span> <span><b th:utext="${order.emailAddress}"></b></span>.</p>
+        </div>
+        
+        <div class="col-md-12 col-sm-12 col-xs-12 step-3">
+            <div class="col-md-12 col-sm-12 col-xs-12 USD-1">
+                <div class="table-responsive UUSD-1">
+                    <table class="table" id="cart_products">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>
+                                    <div class="UUD" th:utext="#{cart.item}">ITEAMS</div>
+                                </th>
+                                <th th:utext="#{cart.quantity}">QUANTITY</th>
+                                <th th:utext="#{cart.price}">PRICE</th>
+                                <th th:utext="#{cart.totalSavings}">TOTAL SAVING</th>
+                                <th th:utext="#{cart.total}">TOTAL</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="UTT" th:each="item : ${order.discreteOrderItems}" th:object="${item}" th:id="${'productRow' + item.id}">
+                                <td class="USD-2">
+                                    <div class="col-md-12 col-sm-12 col-xs-12 USD-1">
+                                        <th:block th:unless="*{#lists.isEmpty(sku.productOptionValues)}" th:each="optionValue : *{sku.productOptionValues}">
+                                            <img class="img-responsive" th:if="${optionValue.attributeValue == item.sku.skuMedia['primary']?.tags}" blc:src="@{*{sku.skuMedia['primary'].url} + '?thumbnail'}" th:alt="*{sku.name}" />
+                                            <img class="img-responsive" th:if="${optionValue.attributeValue == item.sku.skuMedia['alt1']?.tags}" blc:src="@{*{sku.skuMedia['alt1'].url} + '?thumbnail'}" th:alt="*{sku.name}" />
+                                            <img class="img-responsive" th:if="${optionValue.attributeValue == item.sku.skuMedia['alt2']?.tags}" blc:src="@{*{sku.skuMedia['alt2'].url} + '?thumbnail'}" th:alt="*{sku.name}" />
+                                        </th:block>
+                                        <img class="img-responsive" th:if="*{#lists.isEmpty(sku.productOptionValues) and sku.skuMedia['primary'] != null}" blc:src="@{*{sku.skuMedia['primary'].url} + '?thumbnail'}" th:alt="*{sku.name}" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="col-md-12 col-sm-12 col-xs-12 USD-1 UASD-1">
+                                        <!--<h4><a href=""> Montblanc 4810 TwinFly Chronograph Edition </a> </h4>-->
+                                        <a th:unless="${@blSystemPropertiesService.resolveBooleanSystemProperty('solr.index.use.sku')}" th:href="@{*{product.url}}" th:utext="*{product.name}"></a>
+                                        <a th:if="${@blSystemPropertiesService.resolveBooleanSystemProperty('solr.index.use.sku')} and *{sku.urlKey}" th:href="@{*{product.url} + *{sku.urlKey}}" th:inline="text">
+                                           [[*{sku.name}]] <span th:each="optionValue : *{sku.productOptionValues}" th:utext="${optionValue.attributeValue}"></span>
+                                        </a>
+                                        <a th:if="${@blSystemPropertiesService.resolveBooleanSystemProperty('solr.index.use.sku')} and !*{sku.urlKey}" th:href="@{*{product.url}}" th:inline="text">
+                                           [[*{sku.name}]] <span th:each="optionValue : *{sku.productOptionValues}" th:utext="${optionValue.attributeValue}"></span>
+                                        </a>
+                                        <br/>
+                                        <blc:product_option_display orderItem="${item}" >
+                                             <ul th:unless="${#lists.isEmpty(productOptionDisplayValues)}" class="productOptions">
+                                                 <li th:each="entry: ${productOptionDisplayValues}">
+                                                   <span  th:utext="${entry.key} + ': ' + ${entry.value}"></span>
+                                                 </li>
+                                             </ul>
+                                        </blc:product_option_display>
+                                    </div>
+                                </td>
+                                <td>
+                                    <h4 th:utext="*{quantity}">1</h4>
+                                </td>
+                                <td>
+                                    <h4 blc:price="*{price}"></h4>
+                                </td>
+                                <td>
+                                    <h4 th:if="*{adjustmentValue.zero}"></h4>
+                                    <h4 th:unless="*{adjustmentValue.zero}">
+                                        <span  align="center"  blc:price="*{totalAdjustmentValue}" class="promotion" ></span>
+                                        <div class="productOptions" th:substituteby="catalog/partials/offers :: offers"></div>
+                                    </h4>
+                                </td>
+                                <td>
+                                    <h4 blc:price="*{totalPrice}"></h4>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12  price-detail TUS">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td th:utext="#{confirmation.orderSubTotal}">Subtotal</td>
+                                <td style="text-align: right;" blc:price="${order.subTotal}"></td>
+                            </tr>
+                            <tr>
+                                <td th:utext="#{confirmation.promotions}">Promotions</td>
+                                <td style="text-align: right;" th:if="${order.orderAdjustmentsValue.zero}"></td>
+                                <td style="text-align: right;" th:unless="*{order.orderAdjustmentsValue.zero}" blc:price="${order.orderAdjustmentsValue}"></td>
+                            </tr>
+                            <tr>
+                                <td th:utext="#{confirmation.taxes}">Taxes</td>
+                                <td style="text-align: right;" blc:price="${order.totalTax}"></td>
+                            </tr>
+                            <tr>
+                                <td th:utext="#{confirmation.orderTotal}"><h4>Order Total</h4></td>
+                                <td style="text-align: right;"><h4 id="subtotal" blc:price="${order.total}"></h4></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div th:object="${order.fulfillmentGroups[0]}" th:if="${#lists.size(order.fulfillmentGroups) > 1}">
+                <div th:each="fg : ${order.fulfillmentGroups}" th:object="${fg}" class="multishipGroupRow" th:unless="${fg.type?.type == 'GIFT_CARD' or fg.type?.type == 'DIGITAL' or fg.type?.type == 'PHYSICAL_PICKUP'}">
+                    <h4>
+                        <span th:classappend="*{address == null}? 'error'"
+                              th:utext="*{address == null ? 'Missing Address' : address.firstName + ' at ' + address.addressLine1}"></span>
+                        <span>&nbsp;-&nbsp;</span>
+                        <span th:classappend="*{fulfillmentOption == null}? 'error'"
+                              th:utext="*{fulfillmentOption == null ? 'Missing Fulfillment Option' : fulfillmentOption.name + ' (' + fulfillmentOption.longDescription + ')'}"></span>
+                        <span blc:price="*{shippingPrice}" class="multishipGroupShippingCharge"></span>
+                    </h4>
+
+                    <table class="multiship_summary">
+                        <tbody>
+                            <tr th:each="item : *{fulfillmentGroupItems}" th:object="${item.orderItem}" th:id="${'productRow' + item.id}">
+                                <td align="center" th:utext="${item.quantity}"></td>
+                                <td align="left">
+                                    <span th:utext="*{sku.name}"></span>
+                                    <blc:product_option_display orderItem="${item.orderItem}" >
+                                        <ul th:unless="${#lists.isEmpty(productOptionDisplayValues)}" class="productOptions">
+                                            <li th:each="entry: ${productOptionDisplayValues}">
+                                              <span  th:utext="${entry.key} + ': ' + ${entry.value}"></span>
+                                            </li>
+                                        </ul>
+                                   </blc:product_option_display>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="col-md-12 col-sm-12 col-xs-12 status-2 USD-1 order-details">
+                <div class="col-md-6 col-sm-6 col-xs-12 UT-1 USD-1" th:object="${order.fulfillmentGroups[0]}" th:inline="text" th:unless="${#lists.size(order.fulfillmentGroups) > 1}">
+                    <div th:unless="*{type?.type == 'GIFT_CARD' or type?.type == 'DIGITAL' or type?.type == 'PHYSICAL_PICKUP'}">
+                        <h3 style="margin-bottom: 20px;"><b th:utext="#{confirmation.shipping.info}">Shipping Information</b></h3>
+                        <ul th:if="*{address.phonePrimary !=null and address.phonePrimary.phoneNumber != null}">
+                            <li>
+                                <h3 style="margin-top: 0">[[*{address.firstName}]]&nbsp;[[*{address.lastName}]]</h3>
+                            </li>
+                            <li>
+                                <h5>[[*{address.addressLine1}]], [[*{address.addressLine2}]]</h5>
+                            </li>
+                            <li>
+                                <h5>[[*{address.city}]],&nbsp;[[*{address.stateProvinceRegion}]]&nbsp;[[*{address.postalCode}]]</h5>
+                            </li>
+                            <li>
+                                <h5>[[*{address.phonePrimary.phoneNumber}]],&nbsp;[[*{address.isoCountryAlpha2.name == null ? '' : address.isoCountryAlpha2.name}]]</h5>
+                            </li>
+                        </ul>
+                        <ul th:if="*{address.phonePrimary == null or address.phonePrimary.phoneNumber == null}">
+                            <li>
+                                <h3 style="margin-top: 0">[[*{address.firstName}]]&nbsp;[[*{address.lastName}]]</h3>
+                            </li>
+                            <li>
+                                <h5>[[*{address.addressLine1}]], [[*{address.addressLine2}]]</h5>
+                            </li>
+                            <li>
+                                <h5>[[*{address.city}]],&nbsp;[[*{address.stateProvinceRegion}]]&nbsp;[[*{address.postalCode}]]]</h5>
+                            </li>
+                            <li>
+                                <h5>[[*{address.isoCountryAlpha2.name == null ? '' : address.isoCountryAlpha2.name}]]</h5>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12 UT-1 USD-1" th:object="${order.fulfillmentGroups[0]}" th:inline="text" th:unless="${#lists.size(order.fulfillmentGroups) > 1}">
+                    <div th:unless="*{type?.type == 'GIFT_CARD' or type?.type == 'DIGITAL' or type?.type == 'PHYSICAL_PICKUP'}">
+                        <h3 style="margin-bottom: 20px;"><b th:utext="#{confirmation.shipping.method}">Shipping Method</b></h3>
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <h4 style="margin-top: 0;">[[*{fulfillmentOption.name}]]</h4>
+                                    </td>
+                                    <td>
+                                        <h4 style="margin-top: 0;">([[*{fulfillmentOption.longDescription}]])</h4>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="center-block">
+                <a th:href="@{'/'}"><button type="button" class="btn-dark">Continue Shopping</button></a>
+            </div>
+        </div>
+    </div>
 </div>
