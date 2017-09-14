@@ -115,6 +115,9 @@ body {
     text-align: left;
 }
 
+.USD-2 {
+    width: 60%;
+}
 
 .UASD-1 ul {
     padding: 0;
@@ -142,7 +145,7 @@ body {
 
 .UTT h4 {
     /*margin-top: 9%;*/
-    margin-top: 0px;
+    margin-top: 50px;
 }
 
 .UASD-1 h4:hover {
@@ -530,111 +533,31 @@ padding: 25px;
     color: #818181;
     margin-top: 15%;
 }
-
-.step-3 .product-detail-1 {
-    margin-top: 2%;
-    margin-bottom: 2%;
-    border-bottom: 1px solid #c5c5c5;
+.order-summary .op{
+    border-bottom: 1px solid #efefef;
 }
 
-.step-3 .product-detail-1 .table {
-    margin-top: 1%;
+.checkout .hdng h1{
+    text-align: center;
+    color: #c29869;
+    font-weight: bolder;
+    font-size: 50px;
 }
-
-.step-3 .product-detail-1 .table>tbody>tr>td {
-    padding: 2px;
-    line-height: 1.42857143;
-    border-top: 0px;
-    font-size: 18px;
-    color: #212230;
-}
-
-.step-3 .product-detail-1 .table>tbody>tr>td>h4:hover {
-    color: #212230;
-}
-
-.step-3 .product-detail-1 .table>thead>tr>th {
-    vertical-align: top;
-    border-bottom: 0px;
-    font-size: 18px;
-    color: #212230;
-    padding: 2px;
-}
-
-.step-3 .status .table {
-    margin-top: 0;
-    margin-bottom: 10px;
-}
-
-.step-3 .status .table>tbody>tr>td {
-    border: 0;
-}
-
-.step-3 .status .table>tbody>tr>td>h4 {
-    margin: 0;
-    color: #212230;
-}
-
-.step-3 .status .TD1 {
-    width: 26%;
-}
-
-.step-3 .status .TD2 {
-    width: 40%;
-}
-
-.step-3 .status-2 .TD3 {
-    width: 23%;
-    padding-left: 0;
-}
-
-.step-3 .status-2 .TD4 {
-    width: 29%;
-}
-
-.step-3 .order-details {
-    padding: 7px;
-    margin-top: 1%;
-}
-
-.step-3 .order-details ul {
+.prize-detail .yt{
     padding: 0;
     margin: 0;
-}
-
-.step-3 .order-details li {
     list-style: none;
-    color: #212230;
+    display: inline-flex;
+    width: 100%;
+    font-size: 18px;
     margin-bottom: 15px;
 }
-
-.step-3 .order-details .table>tbody>tr>td {
-    border: 0;
-    padding: 0px 0px 15px 0px;
+.prize-detail .mt{
+width: 50%;
 }
-
-.step-3 .btn-dark {
-    background-color: transparent;
-    border: 1px solid #212230;
-    border-radius: 0;
-    padding: 15px;
-    color: #212230;
-    width: 250px;
-    margin-top: 20%;
-    outline: none !important;
-    transition: all 0.3s ease;
-    position: relative;
+.prize-detail .yt-1{
+    border-top: 1px solid #d1d1d1;
 }
-
-.step-3 .btn-dark:hover {
-    background-color: #212230;
-    color: #9397a3;
-}
-
-.step-3 .btn-dark:active {
-    top: 2px;
-}
-
 .UT-1 {
     margin-bottom: 20px;
 }

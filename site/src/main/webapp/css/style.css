@@ -6,12 +6,16 @@ body {
     color: #fff;
     background-color: #c29869;
 }
+
 ::selection {
     color: #fff;
     background-color: #c29869;
 }
 .my-banner{
     margin-top: 20px;
+}
+a{
+    text-decoration: none;
 }
 .tool-tip {
   border: 1px solid #ccc;
@@ -310,9 +314,9 @@ a:focus {
 }
 #nav .navbar-brand-centered {
     position: absolute;
-    left: 50%;
+    left: 46%;
     display: block;
-    width: 160px;
+    width: 200px;
     text-align: center;
 }
 #nav .navbar>.container #nav .navbar-brand-centered,
@@ -1315,6 +1319,144 @@ a:after {
     padding: 7px;
 }
 /*Section7 Ends*/
+
+// helping css
+.margin-0 {
+    margin: 0 !important;
+}
+.margin-top-0 {
+    margin-top: 0 !important;
+}
+.margin-bottom-0 {
+    margin-bottom: 0 !important;
+}
+.margin-right-0 {
+    margin-right: 0 !important;
+}
+.margin-left-0 {
+    margin-left: 0 !important;
+}
+.margin-top-5 {
+    margin-top: 5px !important;
+}
+.margin-bottom-5 {
+    margin-bottom: 5px !important;
+}
+.margin-right-5 {
+    margin-right: 5px !important;
+}
+.margin-left-5 {
+    margin-left: 5px !important;
+}
+.margin-top-10 {
+    margin-top: 10px !important;
+}
+.margin-bottom-10 {
+    margin-bottom: 10px !important;
+}
+.margin-right-10 {
+    margin-right: 10px !important;
+}
+.margin-left-10 {
+    margin-left: 10px !important;
+}
+.margin-top-15 {
+    margin-top: 15px !important;
+}
+.margin-bottom-15 {
+    margin-bottom: 15px !important;
+}
+.margin-right-15 {
+    margin-right: 15px !important;
+}
+.margin-left-15 {
+    margin-left: 15px !important;
+}
+.margin-top-20 {
+    margin-top: 20px !important;
+}
+.margin-bottom-20 {
+    margin-bottom: 20px !important;
+}
+.margin-right-20 {
+    margin-right: 20px !important;
+}
+.margin-left-20 {
+    margin-left: 20px !important;
+}
+.padding-0 {
+    padding: 0px !important;
+}
+.padding-top-0 {
+    padding-top: 0px !important;
+}
+.padding-bottom-0 {
+    padding-bottom: 0px !important;
+}
+.padding-right-0 {
+    padding-right: 0px !important;
+}
+.padding-left-0 {
+    padding-left: 0px !important;
+}
+.padding-top-5 {
+    padding-top: 5px !important;
+}
+.padding-bottom-5 {
+    padding-bottom: 5px !important;
+}
+.padding-right-5 {
+    padding-right: 5px !important;
+}
+.padding-left-5 {
+    padding-left: 5px !important;
+}
+.padding-top-10 {
+    padding-top: 10px !important;
+}
+.padding-bottom-10 {
+    padding-bottom: 10px !important;
+}
+.padding-right-10 {
+    padding-right: 10px !important;
+}
+.padding-left-10 {
+    padding-left: 10px !important;
+}
+.padding-top-20 {
+    padding-top: 20px !important;
+}
+.padding-bottom-20 {
+    padding-bottom: 20px !important;
+}
+.padding-right-20 {
+    padding-right: 20px !important;
+}
+.padding-left-20 {
+    padding-left: 20px !important;
+}
+.float-right {
+    float: right !important;
+}
+.float-left {
+    float: left !important;
+}
+.cursor-pointer {
+    cursor: pointer;
+}
+.overflow-y-unset {
+    overflow-y: unset !important;
+}
+.overflow-y-scroll {
+    overflow-y: scroll !important;
+}
+.overflow-y-hidden {
+    overflow-y: hidden !important;
+}
+
+// helping css
+
+
 /*Footer*/
 
 .footer {

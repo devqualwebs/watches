@@ -69,116 +69,62 @@
 
         <section class="checkout">
             <div class="container">
-                <div>
-                    <ul class="nav nav-tabs center-block">
-                        <li class="active"><a data-toggle="tab" href="#home">Checkout</a> </li>
-                        <li><a data-toggle="tab" href="#menu1">Address</a> </li>
-                        <li><a data-toggle="tab" href="#menu2">Payment</a> </li>
-                        <!--<li><a data-toggle="tab" href="#menu3">Order Complete</a> </li>-->
-                    </ul>
-                    <div class="tab-content">
-                        <div id="home" class="tab-pane fade in active" th:if="${#lists.isEmpty(cart.orderItems)}">
-                            <div class=" col-md-12 col-sm-12 col-xs-12 empty">
-                                <center>
-                                    <img src="/img/no order.png" />
-                                    <h3>You Have No Items In Your Cart</h3>
-                                    <a th:href="@{/}"><button type="button" class="btn-dark">Shop Now</button></a>
-                                </center>
-                            </div>
-                        </div>
-                        <div id="home" class="tab-pane fade in active" th:unless="${#lists.isEmpty(cart.orderItems) or cartRequiresLock != null}">
-                            
-                            <div class="table-responsive UUSD-1" th:replace="checkout/partials/orderSummary :: order-summary"></div>
-                            
-                            <div class="col-md-12 col-sm-12 col-xs-12 price-detail">
-                                
-                                <table class="table">
-                                    <tbody>
-                                        <tr>
-                                            <td>Subtotal</td>
-                                            <td style="text-align: right;" blc:price="${cart.subTotal}"></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Promotions</td>
-                                            <td style="text-align: right;" class="discount" th:if="${cart.orderAdjustmentsValue.zero}">---</td>
-                                            <td style="text-align: right;" class="discount" th:unless="*{cart.orderAdjustmentsValue.zero}" blc:price="${cart.orderAdjustmentsValue}"></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Taxes</td>
-                                            <td style="text-align: right;" blc:price="${cart.totalTax}"></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Shipping</td>
-                                            <td style="text-align: right;" blc:price="${cart.totalShipping}"></td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <h4>Amount Payable</h4> </td>
-                                            <td style="text-align: right;">
-                                                <h4 id="checkout_total" blc:price="${cart.total}"></h4> </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="col-md-12 col-sm-12 col-xs-12 UTT">
-                                <button class="btn-dark">Place Order</button>
-                            </div>
-                        </div>
-                        <div id="menu1" class="tab-pane fade">
+                    <div class="col-md-12 col-sm-12 col-xs-12 hdng padding-bottom-20 margin-bottom-10">
+                        <h1 class="background text-center"><span> Checkout</span></h1>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12 padding-0">
+                        <div class="col-md-6 col-sm-6 col-xs-12">
                             <div class="col-md-12 col-sm-12 col-xs-12 step-2">
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <div th:each="sectionDTO : ${checkoutSectionDTOs}" th:object="${sectionDTO}" th:remove="tag">
-                                        <div th:if="${'ORDER_INFO' == sectionDTO.view.type}" th:remove="tag">
-                                            <div th:replace="checkout/partials/orderInfoForm :: order-info-form"
-                                                    th:with="${sectionDTO}"></div>
-                                            <div class="clearfix"></div>
-                                        </div>
-                                        <div th:if="${'BILLING_INFO' == sectionDTO.view.type}" th:remove="tag">
-                                            <div th:replace="checkout/partials/billingInfoForm :: billing-info-form"
-                                                    th:with="${sectionDTO}"></div>
+<!--                                <h2 class="padding-bottom-20 margin-bottom-0">DELIVERY ADDRESS</h2>
+                                <div class="col-md-12 col-sm-12 col-xs-12" style="padding-left: 0; margin-top: 20px;">
+                                    <div style="background-color: #f7f7f7; padding: 20px;">
+                                        <ul>
+                                            <li>
+                                            <h3 style="margin-top: 0">Wendell Mckinney</h3> </li>
+                                            <li>
+                                            <h5>5 Fletcher Cl, Cockermouth CA13 0NF, UK</h5> </li>
+                                            <li>
+                                            <h5>+1-202-555-0147</h5> </li>
+                                            <li>
+                                            <h5>wendellmckinney@gmail.com</h5> </li>
+                                        </ul>
+                                        <div class="address">
+                                            <ul>
+                                                <li><b> Remove</b> </li>
+                                                <li><b> Edit</b> </li>
+                                            </ul>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <h3>Shipping Address</h3>
-                                    <div class="col-md-12 col-sm-12 col-xs-12" style="padding-left: 0; margin-top: 20px;">
-                                        <div th:each="sectionDTO : ${checkoutSectionDTOs}" th:object="${sectionDTO}" th:remove="tag">
-                                            <div th:if="${'SHIPPING_INFO' == sectionDTO.view.type}" th:remove="tag">
-                                                <div th:replace="checkout/partials/shippingInfoForm :: shipping-info-form"
-                                                        th:with="${sectionDTO}"></div>
-                                            </div>
-                                        </div>
+                                    <button type="button" class="btn-dark" data-toggle="modal" data-target="#myModal">+ Add New Address</button>
+                                </div>-->
+                                <div th:each="sectionDTO : ${checkoutSectionDTOs}" th:object="${sectionDTO}" th:remove="tag">
+                                    <div th:if="${'ORDER_INFO' == sectionDTO.view.type}" th:remove="tag">
+                                        <div th:replace="checkout/partials/orderInfoForm :: order-info-form"
+                                                th:with="${sectionDTO}"></div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div th:if="${'BILLING_INFO' == sectionDTO.view.type}" th:remove="tag">
+                                        <div th:replace="checkout/partials/billingInfoForm :: billing-info-form"
+                                                th:with="${sectionDTO}"></div>
+                                    </div>
+                                    <div th:if="${'SHIPPING_INFO' == sectionDTO.view.type}" th:remove="tag">
+                                        <div th:replace="checkout/partials/shippingInfoForm :: shipping-info-form"
+                                                th:with="${sectionDTO}"></div>
+                                    </div>
+                                    <div th:if="${'PAYMENT_INFO' == sectionDTO.view.type}" th:remove="tag">
+                                        <div class="clearfix"></div>
+                                        <div th:replace="checkout/partials/paymentInfoForm :: payment-info-form"
+                                                th:with="${sectionDTO}"></div>
                                     </div>
                                 </div>
-                                
                             </div>
-                            <div class="col-md-12 col-sm-12 col-xs-12 text">
-                                <h5>By placing the order, you have read and agreed to Watches.com Terms of Use and Privacy Policy.</h5> </div>
-                        </div>
-                        <div id="menu2" class="tab-pane fade">
-                            <div class="col-md-12 col-sm-12 col-xs-12 step-2">
+                            
+<!--                            <div class="col-md-12 col-sm-12 col-xs-12 step-2">
                                 <div class="payment-method">
-                                    <div th:each="sectionDTO : ${checkoutSectionDTOs}" th:object="${sectionDTO}" th:remove="tag">
-                                        <div th:if="${'PAYMENT_INFO' == sectionDTO.view.type}" th:remove="tag">
-                                            <div class="clearfix"></div>
-                                            <div th:replace="checkout/partials/paymentInfoForm :: payment-info-form"
-                                                    th:with="${sectionDTO}"></div>
-                                        </div>
-                                    </div>
-                                </div>
-<!--                                <div class="col-md-6 col-sm-6 col-xs-12 payment-method">
-                                    <h3>PAYMENT METHOD</h3>
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Amount Payable</th>
-                                                <th>$260 USD</th>
-                                            </tr>
-                                        </thead>
-                                    </table>
+                                    <h2 class="padding-bottom-20">PAYMENT METHOD</h2>
                                     <div class="checkboxx">
                                         <div class="center-on-page">
-                                            <input type="radio" name="rb" id="rb1" />
+                                            <input type="radio" name="rb" checked="checked" id="rb1" />
                                             <label for="rb1">Credit Card</label>
                                         </div>
                                     </div>
@@ -186,173 +132,90 @@
                                         <div class="form-group">
                                             <label for="">Card Number</label>
                                             <input type="" class="form-control" id="" /> </div>
-                                        <div class="form-group">
-                                            <label for="">Name on the Card</label>
-                                            <input type="" class="form-control" id="" /> </div>
-                                        <div class="col-md-6 col-sm-6 col-xs-12" style="padding-left: 0;">
                                             <div class="form-group">
-                                                <label for="">CVV</label>
+                                                <label for="">Name on the Card</label>
                                                 <input type="" class="form-control" id="" /> </div>
-                                        </div>
-                                        <div class="col-md-6 col-sm-6 col-xs-12" style="padding-right: 0;">
-                                            <div class="form-group">
-                                                <label for="">Expiration Date</label>
-                                                <input type="" class="form-control" id="" /> </div>
-                                        </div>
-                                    </form>
-                                    <div class="checkboxx">
-                                        <div class="center-on-page">
-                                            <input type="radio" name="rb" id="rb3" />
-                                            <label for="rb3"> Pay Pal</label>
-                                        </div>
-                                    </div>
-                                    <div class="checkboxx">
-                                        <div class="center-on-page">
-                                            <input type="radio" name="rb" id="rb5" />
-                                            <label for="rb5"> Cash On Delivery</label>
-                                        </div>
-                                    </div>
-                                    <button class="btn-dark">Confirm Order</button>
-                                </div>-->
-                            </div>
+                                                <div class="col-md-6 col-sm-6 col-xs-12" style="padding-left: 0;">
+                                                    <div class="form-group">
+                                                        <label for="">CVV</label>
+                                                        <input type="" class="form-control" id="" /> </div>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-6 col-xs-12" style="padding-right: 0;">
+                                                        <div class="form-group">
+                                                            <label for="">Expiration Date</label>
+                                                            <input type="" class="form-control" id="" /> </div>
+                                                        </div>
+                                                    </form>
+                                                    <div class="checkboxx">
+                                                        <div class="center-on-page">
+                                                            <input type="radio" name="rb" id="rb3" />
+                                                            <label for="rb3"> Pay Pal</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="checkboxx">
+                                                        <div class="center-on-page">
+                                                            <input type="radio" name="rb" id="rb5" />
+                                                            <label for="rb5"> Cash On Delivery</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                            </div>-->
                         </div>
-                        <div id="menu3" class="tab-pane fade">
-                            <div class="col-md-12 col-sm-12 col-xs-12 step-3">
-                                <div class="col-md-12 col-sm-12 col-xs-12 USD-1">
-                                    <div class="table-responsive UUSD-1">
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-                                                    <th>
-                                                        <div class="UUD">ITEAMS</div>
-                                                    </th>
-                                                    <th>QUANTITY</th>
-                                                    <th>PRICE</th>
-                                                    <th>TOTAL</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr class="UTT">
-                                                    <td class="USD-2">
-                                                        <div class="col-md-12 col-sm-12 col-xs-12 USD-1">
-                                                            <div class="col-md-2 col-sm-2 col-xs-12 USD-1">
-                                                                <img class="img-responsive" src="/img/1 (1) - Copy - Copy.jpg" />
+                                                            <div class="col-md-6 col-sm-6 col-xs-12 order-summary" th:if="${#lists.isEmpty(cart.orderItems)}">
+                                                                <h2 class="padding-bottom-20">ORDER SUMMARY</h2>
+                                                                <div class="col-md-12 col-sm-12 col-xs-12 padding-0">
+                                                                    <div class="empty">
+                                                                        <center>
+                                                                            <img src="/img/no order.png" />
+                                                                            <h3>You Have No Items In Your Cart</h3>
+                                                                            <a th:href="@{/}"><button type="button" class="btn-dark">Shop Now</button></a>
+                                                                        </center>
+                                                                    </div>
+                                                                </div>
                                                             </div>
-                                                            <div class="col-md-9 col-sm-9 col-xs-12 USD-1">
-                                                                <div class="col-md-12 col-sm-12 col-xs-12 USD-1 UASD-1">
-                                                                    <h4><a href=""> Montblanc 4810 TwinFly Chronograph Edition </a> </h4> </div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <h4>1</h4></td>
-                                            <td><h4>$ 250</h4>
-                                                    </td>
-                                                    <td>
-                                                        <h4>$ 250</h4>
-                                                    </td>
-                                                </tr>
-                                                <tr class="UTT">
-                                                    <td class="USD-2">
-                                                        <div class="col-md-12 col-sm-12 col-xs-12 USD-1">
-                                                            <div class="col-md-2 col-sm-2 col-xs-12 USD-1">
-                                                                <img class="img-respo" src="/img/1 (1) - Copy - Copy.jpg" />
-                                                            </div>
-                                                            <div class="col-md-9 col-sm-9 col-xs-12 USD-1">
-                                                                <div class="col-md-12 col-sm-12 col-xs-12 USD-1 UASD-1">
-                                                                    <h4><a href=""> Montblanc 4810 TwinFly Chronograph Edition </a> </h4> </div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <h4>1</h4></td>
-                                            <td><h4>$ 250</h4>
-                                                    </td>
-                                                    <td>
-                                                        <h4>$ 250</h4>
-                                                    </td>
-                                                </tr>
-                                                <tr class="UTT">
-                                                    <td class="USD-2">
-                                                        <div class="col-md-12 col-sm-12 col-xs-12 USD-1">
-                                                            <div class="col-md-2 col-sm-2 col-xs-12 USD-1">
-                                                                <img class="img-responsive" src="/img/1 (1) - Copy - Copy.jpg" />
-                                                            </div>
-                                                            <div class="col-md-9 col-sm-9 col-xs-12 USD-1">
-                                                                <div class="col-md-12 col-sm-12 col-xs-12 USD-1 UASD-1">
-                                                                    <h4><a href=""> Montblanc 4810 TwinFly Chronograph Edition </a> </h4> </div>
+                                                            <div class="col-md-6 col-sm-6 col-xs-12 order-summary" th:unless="${#lists.isEmpty(cart.orderItems) or cartRequiresLock != null}">
+                                                                <h2 class="padding-bottom-20">ORDER SUMMARY</h2>
+                                                                <div class="col-md-12 col-sm-12 col-xs-12 padding-0" th:replace="checkout/partials/orderSummary :: order-summary" />
+                                                                <div class="col-md-12 col-sm-12 col-xs-12 padding-0 prize-detail">
+                                                                    <h2 class="padding-top-20 padding-bottom-20">PRICE DETAILS</h2>
+                                                                    <div class="clearfix" style="background-color: #f7f7f7; padding: 20px;">
+                                                                        <div class="col-md-12 col-sm-12 col-xs-12 padding-0 ">
+                                                                            <ul class="yt">
+                                                                                <li class="mt">Subtotal</li>
+                                                                                <li class="text-right mt" blc:price="${cart.subTotal}"></li>
+                                                                            </ul>
+                                                                        </div>
+                                                                        <div class="col-md-12 col-sm-12 col-xs-12 padding-0 ">
+                                                                            <ul class="yt">
+                                                                                <li class="mt">Bag Discount</li>
+                                                                                <li class="text-right mt" th:if="${cart.orderAdjustmentsValue.zero}">---</li>
+                                                                                <li class="text-right mt" th:unless="*{cart.orderAdjustmentsValue.zero}" blc:price="${cart.orderAdjustmentsValue}"></li>
+                                                                            </ul>
+                                                                        </div>
+                                                                        <div class="col-md-12 col-sm-12 col-xs-12 padding-0 ">
+                                                                            <ul class="yt">
+                                                                                <li class="mt">Taxes</li>
+                                                                                <li class="text-right mt" blc:price="${cart.totalTax}"></li>
+                                                                            </ul>
+                                                                        </div>
+                                                                        <div class="col-md-12 col-sm-12 col-xs-12 padding-0 ">
+                                                                            <ul class="yt">
+                                                                                <li class="mt">Shipping</li>
+                                                                                <li class="text-right mt" blc:price="${cart.totalShipping}">Free</li>
+                                                                            </ul>
+                                                                        </div>
+                                                                        <div class="col-md-12 col-sm-12 col-xs-12 padding-0 yt-1">
+                                                                            <ul class="yt margin-bottom-0">
+                                                                                <li class="mt"><h3 class="margin-bottom-0 margin-top-10"><b>Amount Payable</b></h3></li>
+                                                                                <li class="text-right mt"><h3 class="margin-bottom-0 margin-top-10"><b blc:price="${cart.total}"></b></h3></li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </td>
-                                                    <td>
-                                                        <h4>1</h4></td>
-                                            <td><h4>$ 250</h4>
-                                                    </td>
-                                                    <td>
-                                                        <h4>$ 250</h4>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="col-md-12 col-sm-12 col-xs-12  price-detail">
-                                        <table class="table">
-                                            <tbody>
-                                                <tr>
-                                                    <td>Price Item (1)</td>
-                                                    <td style="text-align: right;">$250 USD</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Delivery Charges</td>
-                                                    <td style="text-align: right;">$10 USD</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <h4>Amount Payable</h4> </td>
-                                                    <td style="text-align: right;">
-                                                        <h4>$260 USD</h4> </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="col-md-12 col-sm-12 col-xs-12 status-2 USD-1 order-details">
-                                    <div class="col-md-6 col-sm-6 col-xs-12 UT-1 USD-1">
-                                        <h3 style="margin-bottom: 20px;"><b>Shipping Information</b></h3>
-                                        <ul>
-                                            <li>
-                                                <h4 style="margin-top: 0">Wendell Mckinney</h4> </li>
-                                            <li>
-                                                <h5>5 Fletcher Cl, Cockermouth CA13 0NF, UK</h5> </li>
-                                            <li>
-                                                <h5>+1-202-555-0147</h5> </li>
-                                            <li>
-                                                <h5>wendellmckinney@gmail.com</h5> </li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-md-6 col-sm-6 col-xs-12 UT-1 USD-1">
-                                        <h3 style="margin-bottom: 20px;"><b>Payment Mode</b></h3>
-                                        <table class="table">
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <h4 style="margin-top: 0;">Debit Card</h4>
-                                                    </td>
-                                                    <td>
-                                                        <h4 style="margin-top: 0;">XXXX XXXX XXXX X255</h4>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <!--                             <div class="center-block">
-                                    <button type="button" class="btn-dark">Track your Order</button>
-                                </div> --></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                                                        <!--<div class="col-md-12 col-sm-12 col-xs-12 text-center step-2 padding-0"><button class="btn-dark">Confirm Order</button></div>-->
+                                                    </div>
         </section>
         
     </blc:one_page_checkout>

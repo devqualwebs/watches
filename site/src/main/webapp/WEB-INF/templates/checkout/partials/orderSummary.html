@@ -61,6 +61,9 @@
     </table>
 </div>-->
 
+
+
+<!--
 <div class="table-responsive UUSD-1" th:fragment="order-summary">
     <table class="table">
         <thead>
@@ -110,7 +113,7 @@
                     <h4 blc:price="*{price}"></h4>
                 </td>
                 <td>
-                    <h4 th:if="*{adjustmentValue.zero}">--</h4>
+                    <h4 th:if="*{adjustmentValue.zero}"></h4>
                 </td>
                 <td>
                     <h4 blc:price="*{totalPrice}"></h4>
@@ -118,4 +121,39 @@
             </tr>
         </tbody>
     </table>
+</div>-->
+
+
+<div class="col-md-12 col-sm-12 col-xs-12 padding-0" th:fragment="order-summary">
+    <div class="col-md-12 col-sm-12 col-xs-12 op padding-0 padding-bottom-5 padding-top-5" th:each="item : ${cart.orderItems}" th:object="${item}" th:id="${'productRow' + item.id}">
+        <div class="col-md-2 col-sm-2 padding-0">
+            <th:block th:unless="*{#lists.isEmpty(sku.productOptionValues)}" th:each="optionValue : *{sku.productOptionValues}">
+                <img class="img-responsive" th:if="${optionValue.attributeValue == item.sku.skuMedia['primary']?.tags}" blc:src="@{*{sku.skuMedia['primary'].url}}" th:alt="*{sku.name}" />
+                <img class="img-responsive" th:if="${optionValue.attributeValue == item.sku.skuMedia['alt1']?.tags}" blc:src="@{*{sku.skuMedia['alt1'].url}}" th:alt="*{sku.name}" />
+                <img class="img-responsive" th:if="${optionValue.attributeValue == item.sku.skuMedia['alt2']?.tags}" blc:src="@{*{sku.skuMedia['alt2'].url}}" th:alt="*{sku.name}" />
+            </th:block>
+            <img class="img-responsive" th:if="*{#lists.isEmpty(sku.productOptionValues) and sku.skuMedia['primary'] != null}" blc:src="@{*{sku.skuMedia['primary'].url}}" th:alt="*{sku.name}" />
+        </div>
+        <div class="col-md-8 col-sm-8">
+            <h4><b><a th:unless="${@blSystemPropertiesService.resolveBooleanSystemProperty('solr.index.use.sku')}" th:href="@{*{product.url}}" th:utext="*{product.name}"></a></b></h4>
+            <h4>
+                <b>
+                    <a th:href="@{*{product.url} + *{sku.urlKey}}" th:if="${@blSystemPropertiesService.resolveBooleanSystemProperty('solr.index.use.sku')} and *{sku.urlKey}" th:inline="text">
+                           [[*{sku.name}]] <span th:each="optionValue : *{sku.productOptionValues}" th:utext="${optionValue.attributeValue}"></span>
+                    </a>
+                </b>
+            </h4>
+            <h4>
+                <b>
+                    <a th:if="${@blSystemPropertiesService.resolveBooleanSystemProperty('solr.index.use.sku')} and !*{sku.urlKey}" th:href="@{*{product.url}}" th:inline="text">
+                           [[*{sku.name}]] <span th:each="optionValue : *{sku.productOptionValues}" th:utext="${optionValue.attributeValue}"></span>
+                    </a>
+                </b>
+            </h4>
+            <h5>Quantity : 1</h5>
+        </div>
+        <div class="col-md-2 col-sm-2 padding-0">
+            <h4 class="text-mute" blc:price="*{totalPrice}"></h4>
+        </div>
+    </div>
 </div>
