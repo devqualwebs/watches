@@ -4,6 +4,8 @@
 
     <div class="checkout_warning"
          th:if="${'INACTIVE' == sectionDTO.state.type}">
+        <br/>
+        <h3>Payment Options</h3>
         <span th:utext="${sectionDTO.helpMessage}"></span>
     </div>
 
